@@ -1,0 +1,14 @@
+$include /etc/inputrc
+set completion-ignore-case On
+
+# Make tab cycle between possible completions.
+# Tab cycle forward
+# Shift+Tab cycle backwards
+
+TAB: menu-complete
+"\e[Z": menu-complete-backward
+
+# Display list of matches for completion
+
+set show-all-if-unmodified on
+set show-all-if-ambiguous on
