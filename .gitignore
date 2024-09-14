@@ -1,0 +1,9 @@
+*
+
+!.gitignore
+!.bashrc
+!.gitconfig
+!.inputrc
+!.profile
+!.selected_editor
+!.tmux.conf
