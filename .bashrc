@@ -116,6 +116,9 @@ if ! shopt -oq posix; then
   fi
 fi
 
+export PATH=$PATH:/home/soham/.local/bin
+
+export PATH="$PATH:/opt/nvim-linux64/bin"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
@@ -129,4 +132,6 @@ source /usr/share/doc/fzf/examples/key-bindings.bash
 export PATH=$PATH:/usr/local/go/bin
 
 export PATH=$PATH:/home/test/bin
-eval "$(oh-my-posh init bash --config /mnt/c/Users/soham/my-oh-my-posh-themes/jblab_2021.omp.json)"
+eval "$(oh-my-posh init bash --config /home/soham/.oh-my-posh-themes/jblab_2021.omp.json)"
+
+export LANG="en_IN.utf8"
