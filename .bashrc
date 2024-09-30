@@ -116,6 +116,10 @@ if ! shopt -oq posix; then
   fi
 fi
 
+
+# Alias for changing brightness
+alias bt='sudo brightnessctl set'
+
 export PATH=$PATH:/home/soham/.local/bin
 
 export PATH="$PATH:/opt/nvim-linux64/bin"
@@ -135,3 +139,9 @@ export PATH=$PATH:/home/test/bin
 eval "$(oh-my-posh init bash --config /home/soham/.oh-my-posh-themes/jblab_2021.omp.json)"
 
 export LANG="en_IN.utf8"
+
+# Attach to new or existing tmux session
+if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
+  # Create session 'soham' or attach to 'soham' if already exists.
+  tmux new-session -A -s soham
+fi
