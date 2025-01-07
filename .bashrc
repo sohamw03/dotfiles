@@ -121,27 +121,35 @@ fi
 alias bt='sudo brightnessctl set'
 
 export PATH=$PATH:/home/soham/.local/bin
-
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
+# NVM
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# PyEnv
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init --path)"
 eval "$(pyenv init -)"
 
+# FzF
 source /usr/share/doc/fzf/examples/key-bindings.bash
 export PATH=$PATH:/usr/local/go/bin
 
+# OhMyPosh
 export PATH=$PATH:/home/test/bin
-eval "$(oh-my-posh init bash --config /home/soham/.oh-my-posh-themes/jblab_2021.omp.json)"
+eval "$(oh-my-posh init bash --config /home/soham/.oh-my-posh-themes/catppuccin_mocha.omp.json)"
 
 export LANG="en_IN.utf8"
 
-# Attach to new or existing tmux session
+# Tmux | Attach to new or existing tmux session
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
   # Create session 'soham' or attach to 'soham' if already exists.
-  tmux new-session -A -s soham
+  tmux new-session -A -s soham -c $(pwd)
 fi
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
