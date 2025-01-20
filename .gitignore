@@ -7,4 +7,5 @@
 !.profile
 !.selected_editor
 !.tmux.conf
-!.oh-my-posh-themes/catpuccin_mocha.omp.json
+!*/
+!.oh-my-posh-themes/*
