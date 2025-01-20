@@ -117,8 +117,10 @@ if ! shopt -oq posix; then
 fi
 
 
-# Alias for changing brightness
-alias bt='sudo brightnessctl set'
+# Function for changing brightness
+function bt() {
+    sudo brightnessctl set $1%
+}
 
 export PATH=$PATH:/home/soham/.local/bin
 export PATH="$PATH:/opt/nvim-linux64/bin"
