@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-      *) return;;
+    *) return;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -65,11 +65,11 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
+    xterm*|rxvt*)
+	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+	;;
+    *)
+	;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -109,11 +109,11 @@ fi
 # this, if it's already enabled in /etc/bash.bashrc and /etc/profile
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
-  if [ -f /usr/share/bash-completion/bash_completion ]; then
-    . /usr/share/bash-completion/bash_completion
-  elif [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-  fi
+    if [ -f /usr/share/bash-completion/bash_completion ]; then
+	. /usr/share/bash-completion/bash_completion
+    elif [ -f /etc/bash_completion ]; then
+	. /etc/bash_completion
+    fi
 fi
 
 
@@ -148,10 +148,46 @@ export LANG="en_IN.utf8"
 
 # Tmux | Attach to new or existing tmux session
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
-  # Create session 'soham' or attach to 'soham' if already exists.
-  tmux new-session -A -s soham -c $(pwd)
-fi
+    # Create session 'soham' or attach to 'soham' if already exists.
+    tmux new-session -A -s soham -c $(pwd)
+    fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
+
+# Project selector
+function pr() {
+    local editor="nvim"
+    local cmd="nvim ."
+    local dir
+    local repo
+    local venv=".venv/bin/activate"
+
+    if [ "$1" == "--editor" ]; then
+	editor="$2"
+	shift 2
+    fi
+
+    dir=$(find /home/soham/CODE/ -type d -mindepth 1 -maxdepth 1 | fzf --preview 'cat {}/README.md' --preview-window=right:70%:wrap)
+
+    if [ -z "$dir" ]; then
+	return 1
+    fi
+
+    cd "$dir" || return 1
+
+    repo=$(git remote -v | grep fetch | awk '{print $2}' | sed 's/\.git$//')
+    if [ -z "$repo" ]; then
+	return 1
+    fi
+
+    if [ -f "$venv" ]; then
+	source "$venv"
+    fi
+
+    $editor .
+}
+
+# Lazygit
+alias lg='lazygit'
