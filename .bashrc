@@ -169,7 +169,7 @@ function pr() {
 	shift 2
     fi
 
-    dir=$(find /home/soham/CODE/ -type d -mindepth 1 -maxdepth 1 | fzf --preview 'cat {}/README.md' --preview-window=right:70%:wrap)
+    dir=$(find /home/soham/CODE/ -mindepth 1 -maxdepth 1 -type d | fzf --preview 'cat {}/README.md' --preview-window=right:50%:wrap)
 
     if [ -z "$dir" ]; then
 	return 1
@@ -191,3 +191,12 @@ function pr() {
 
 # Lazygit
 alias lg='lazygit'
+
+# Venv
+alias act='source .venv/bin/activate'
+alias dct='deactivate'
+
+# UV
+export UV_NO_MANAGED_PYTHON=1
+export UV_PYTHON_DOWNLOADS=never
+
