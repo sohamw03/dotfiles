@@ -116,6 +116,12 @@ if ! shopt -oq posix; then
     fi
 fi
 
+# --------------------------------- Soham's Extra --------------------------------- #
+
+# Locale
+export LANG=en_IN.UTF-8
+export LC_ALL=en_IN.UTF-8
+export LANGUAGE=en_IN.UTF-8
 
 # Function for changing brightness
 function bt() {
@@ -150,7 +156,7 @@ export LANG="en_IN.utf8"
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
     # Create session 'soham' or attach to 'soham' if already exists.
     tmux new-session -A -s soham -c $(pwd)
-    fi
+fi
 
 # bun
 export BUN_INSTALL="$HOME/.bun"
@@ -200,3 +206,6 @@ alias dct='deactivate'
 export UV_NO_MANAGED_PYTHON=1
 export UV_PYTHON_DOWNLOADS=never
 
+# Alias for activating .venv
+alias act='source .venv/bin/activate'
+alias dct='deactivate'
