@@ -144,7 +144,10 @@ eval "$(pyenv init -)"
 
 # FzF
 source /usr/share/doc/fzf/examples/key-bindings.bash
+
+# GoLang
 export PATH=$PATH:/usr/local/go/bin
+export PATH=$PATH:$HOME/go/bin
 
 # OhMyPosh
 export PATH=$PATH:/home/test/bin
@@ -163,36 +166,8 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Project selector
-function pr() {
-    local editor="nvim"
-    local cmd="nvim ."
-    local dir
-    local repo
-    local venv=".venv/bin/activate"
-
-    if [ "$1" == "--editor" ]; then
-	editor="$2"
-	shift 2
-    fi
-
-    dir=$(find /home/soham/CODE/ -mindepth 1 -maxdepth 1 -type d | fzf --preview 'cat {}/README.md' --preview-window=right:50%:wrap)
-
-    if [ -z "$dir" ]; then
-	return 1
-    fi
-
-    cd "$dir" || return 1
-
-    repo=$(git remote -v | grep fetch | awk '{print $2}' | sed 's/\.git$//')
-    if [ -z "$repo" ]; then
-	return 1
-    fi
-
-    if [ -f "$venv" ]; then
-	source "$venv"
-    fi
-
-    $editor .
+pr() {
+    source ~/CODE/pr.sh "$@"
 }
 
 # Lazygit
@@ -209,3 +184,8 @@ export UV_PYTHON_DOWNLOADS=never
 # Alias for activating .venv
 alias act='source .venv/bin/activate'
 alias dct='deactivate'
+
+# Screen Color
+if [ -x /usr/bin/sct ]; then
+    sct 4250
+fi
