@@ -167,7 +167,7 @@ export PATH="$BUN_INSTALL/bin:$PATH"
 
 # Project selector
 pr() {
-    source ~/CODE/pr.sh "$@"
+    source ~/dotfiles/pr.sh "$@"
 }
 
 # Lazygit

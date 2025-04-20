@@ -8,7 +8,7 @@ unset is_cd
 
 # Default settings
 editor="nvim"
-proj_file="/home/soham/dotfiles/proj.txt"
+proj_file="/home/soham/CODE/proj.txt"
 is_cd=false
 
 # Parse arguments
