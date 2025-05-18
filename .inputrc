@@ -9,6 +9,9 @@ TAB: menu-complete
 "\e[Z": menu-complete-backward
 
 # Display list of matches for completion
-
 set show-all-if-unmodified on
 set show-all-if-ambiguous on
+
+# Turn on prefix history search using arrow keys
+"\e[A": history-search-backward
+"\e[B": history-search-forward
