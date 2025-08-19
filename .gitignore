@@ -10,3 +10,4 @@
 !*/
 !.oh-my-posh-themes/*
 !pr.sh
+!**/*/key-bindings.bash

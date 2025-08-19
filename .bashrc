@@ -118,6 +118,9 @@ fi
 
 # --------------------------------- Soham's Extra --------------------------------- #
 
+# Set commandline editing mode to vi
+# set -o vi
+
 # Locale
 export LANG=en_IN.UTF-8
 export LC_ALL=en_IN.UTF-8
@@ -173,6 +176,7 @@ pr() {
 
 # Lazygit
 alias lg='lazygit'
+alias gs='git status'
 
 # Venv
 alias act='source .venv/bin/activate'
