@@ -75,7 +75,7 @@ esac
 # enable color support of ls and also add handy aliases
 if [ -x /usr/bin/dircolors ]; then
     test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
+    # alias ls='ls --color=auto'
     #alias dir='dir --color=auto'
     #alias vdir='vdir --color=auto'
 
@@ -88,9 +88,9 @@ fi
 #export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # some more ls aliases
-alias ll='ls -alF'
-alias la='ls -A'
-alias l='ls -CF'
+# alias ll='ls -alF'
+# alias la='ls -A'
+# alias l='ls -CF'
 
 # Add an "alert" alias for long running commands.  Use like so:
 #   sleep 10; alert
@@ -140,12 +140,6 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 nvm use 22 --silent
 
-# PyEnv
-export PYENV_ROOT="$HOME/.pyenv"
-export PATH="$PYENV_ROOT/bin:$PATH"
-eval "$(pyenv init --path)"
-eval "$(pyenv init -)"
-
 # FzF
 source /usr/share/doc/fzf/examples/key-bindings.bash
 
@@ -189,6 +183,22 @@ export UV_PYTHON_DOWNLOADS=never
 # Alias for activating .venv
 alias act='source .venv/bin/activate'
 alias dct='deactivate'
+
+# zoxide
+eval "$(zoxide init bash)"
+alias cd='z'
+
+# ripgrep with delta
+rg() {
+  command rg --json "$@" | delta
+}
+
+# eza
+alias ls='eza -a --icons --group-directories-first --no-quotes'
+alias ll='eza -la --icons --group-directories-first --no-quotes --header'
+
+# mise
+eval "$(/home/soham/.local/bin/mise activate bash)"
 
 # Screen Color
 if [ -x /usr/bin/sct ]; then
