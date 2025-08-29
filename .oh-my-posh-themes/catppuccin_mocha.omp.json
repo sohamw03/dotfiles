@@ -1,11 +1,31 @@
 {
   "$schema": "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json",
   "palette": {
-        "os": "#ACB0BE",
-        "closer": "p:os",
-        "pink": "#F5C2E7",
-        "lavender": "#B4BEFE",
-        "blue":  "#89B4FA"
+    // Catppucin
+    //    "os": "#ACB0BE",
+    //    "closer": "p:os",
+    //    "pink": "#F5C2E7",
+    //    "lavender": "#B4BEFE",
+    //    "blue": "#89B4FA"
+
+    "bg": "#181715",
+    "fg": "#ebdbb2",
+
+    "gray": "#a8a39f", // "#928374",
+    "red": "#cc241d",
+    "green": "#98971a",
+    "yellow": "#b57614",
+    "blue": "#458588",
+    "purple": "#b16286",
+    "aqua": "#689d6a",
+    "orange": "#af3a03",
+
+    "os": "p:orange",
+    "python": "p:blue",
+    "session": "p:gray",
+    "path": "p:yellow",
+    "git": "p:green",
+    "prompt_symbol": "p:green"
   },
   "blocks": [
     {
@@ -18,19 +38,19 @@
           "type": "os"
         },
         {
-          "foreground": "p:os",
+          "foreground": "p:python",
           "style": "plain",
           "template": "({{ if .Error }}{{ .Error }}{{ else }}{{ if .Venv }}{{ .Venv }} {{ end }}{{ .Full }}{{ end }}) ",
           "type": "python"
         },
         {
-          "foreground": "p:blue",
+          "foreground": "p:session",
           "style": "plain",
           "template": "{{ .UserName }}@{{ .HostName }} ",
           "type": "session"
         },
         {
-          "foreground": "p:pink",
+          "foreground": "p:path",
           "properties": {
             "folder_icon": "..\ue5fe..",
             "home_icon": "~",
@@ -41,7 +61,7 @@
           "type": "path"
         },
         {
-          "foreground": "p:lavender",
+          "foreground": "p:git",
           "properties": {
             "branch_icon": "\ue725 ",
             "cherry_pick_icon": "\ue29b ",
@@ -60,7 +80,7 @@
         },
         {
           "style": "plain",
-          "foreground": "p:closer",
+          "foreground": "p:prompt_symbol",
           "template": "\uf105",
           "type": "text"
         }
