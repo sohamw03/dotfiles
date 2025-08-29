@@ -134,17 +134,10 @@ function bt() {
 export PATH=$PATH:/home/soham/.local/bin
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
-# NVM
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-nvm use 22 --silent
-
 # FzF
 source /usr/share/doc/fzf/examples/key-bindings.bash
 
 # GoLang
-export PATH=$PATH:/usr/local/go/bin
 export PATH=$PATH:$HOME/go/bin
 
 # OhMyPosh
@@ -172,13 +165,10 @@ pr() {
 alias lg='lazygit'
 alias gs='git status'
 
-# Venv
-alias act='source .venv/bin/activate'
-alias dct='deactivate'
-
 # UV
 export UV_NO_MANAGED_PYTHON=1
 export UV_PYTHON_DOWNLOADS=never
+export UV_VENV_SEED=1
 
 # Alias for activating .venv
 alias act='source .venv/bin/activate'
@@ -186,7 +176,7 @@ alias dct='deactivate'
 
 # zoxide
 eval "$(zoxide init bash)"
-alias cd='z'
+alias cd=z
 
 # ripgrep with delta
 rg() {
@@ -199,6 +189,7 @@ alias ll='eza -la --icons --group-directories-first --no-quotes --header'
 
 # mise
 eval "$(/home/soham/.local/bin/mise activate bash)"
+mise() { command mise "$@" $([[ $1 == u || $1 == use ]] && echo -g); }
 
 # Screen Color
 if [ -x /usr/bin/sct ]; then
