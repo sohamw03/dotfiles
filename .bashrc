@@ -122,9 +122,9 @@ fi
 # set -o vi
 
 # Locale
-export LANG=en_IN.UTF-8
-export LC_ALL=en_IN.UTF-8
-export LANGUAGE=en_IN.UTF-8
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export LANGUAGE=en_US.UTF-8
 
 # Function for changing brightness
 function bt() {
@@ -135,10 +135,18 @@ export PATH=$PATH:/home/soham/.local/bin
 export PATH="$PATH:/opt/nvim-linux64/bin"
 
 # FzF
-source /usr/share/doc/fzf/examples/key-bindings.bash
+# Find and source fzf keybindings
+if [ -f /usr/share/fzf/key-bindings.bash ]; then
+  source /usr/share/fzf/key-bindings.bash
+elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
+  source /usr/share/doc/fzf/examples/key-bindings.bash
+elif [ -f ~/.fzf/shell/key-bindings.bash ]; then
+  source ~/.fzf/shell/key-bindings.bash
+fi
 
 # GoLang
 export PATH=$PATH:$HOME/go/bin
+eval "$(mise env -s bash go)"
 
 # OhMyPosh
 export PATH=$PATH:/home/test/bin
@@ -151,7 +159,9 @@ if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
     # Create session 'soham' or attach to 'soham' if already exists.
     tmux new-session -A -s soham -c $(pwd)
 fi
-
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+    git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+fi
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
@@ -188,7 +198,7 @@ alias ls='eza -a --icons --group-directories-first --no-quotes'
 alias ll='eza -la --icons --group-directories-first --no-quotes --header'
 
 # mise
-eval "$(/home/soham/.local/bin/mise activate bash)"
+eval "$($(which mise) activate bash)"
 mise() { command mise "$@" $([[ $1 == u || $1 == use ]] && echo -g); }
 
 # Screen Color
