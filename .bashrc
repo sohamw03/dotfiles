@@ -212,6 +212,7 @@ alias ll='eza -la --icons --group-directories-first --no-quotes --header'
 # mise
 eval "$($(which mise) activate bash)"
 mise() { command mise "$@" $([[ $1 == u || $1 == use ]] && echo -g); }
+export MISE_NPM_BUN=true
 
 # Screen Color
 if [ -x /usr/bin/sct ]; then
