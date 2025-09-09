@@ -143,6 +143,9 @@ elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
 elif [ -f ~/.fzf/shell/key-bindings.bash ]; then
   source ~/.fzf/shell/key-bindings.bash
 fi
+export FZF_DEFAULT_COMMAND="fd . $HOME"
+export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
+export FZF_ALT_C_COMMAND="fd -t d . $HOME"
 
 # GoLang
 export PATH=$PATH:$HOME/go/bin
@@ -179,6 +182,15 @@ alias gs='git status'
 export UV_NO_MANAGED_PYTHON=1
 export UV_PYTHON_DOWNLOADS=never
 export UV_VENV_SEED=1
+
+uv() {
+  if [[ "$1" == "sync" ]]; then
+    uv venv
+    uv sync "$@"
+  else
+    uv "$@"
+  fi
+}
 
 # Alias for activating .venv
 alias act='source .venv/bin/activate'

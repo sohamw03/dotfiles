@@ -6,12 +6,6 @@ if [ "$EUID" -eq 0 ]; then
   exit 1
 fi
 
-# Ask for the administrator password upfront
-sudo -v
-
-# Keep-alive: update existing sudo time stamp until the script has finished
-while true; do sudo -n true; sleep 60; kill -0 "$" || exit; done 2>/dev/null &
-
 # --- User Setup ---
 # The following commands should be run as root to create a new user and install sudo.
 # pacman -Syu --noconfirm sudo
@@ -43,6 +37,9 @@ paru -S --noconfirm \
     uv \
     zoxide \
     ripgrep \
+    unzip \
+    lua \
+    wget \
     git-delta \
     eza \
     mise \
@@ -68,6 +65,20 @@ fi
 # --- Go (via mise) ---
 mise use -g python@3.12 node@24 go@latest gemini-cli@latest
 
+# --- Neovim Configuration ---
+echo "Installing Neovim configuration..."
+NVIM_CONFIG_DIR="$HOME/.config/nvim"
+
+# Remove existing config if it exists
+if [ -d "$NVIM_CONFIG_DIR" ]; then
+    echo "Existing Neovim config found. Removing..."
+    rm -rf "$NVIM_CONFIG_DIR"
+fi
+
+# Clone the Neovim configuration
+git clone https://github.com/sohamw03/neovim "$NVIM_CONFIG_DIR"
+echo "Neovim configuration installed."
+
 echo "Installation complete!"
 
 # --- Symlink Dotfiles ---
@@ -90,3 +101,6 @@ ln -s /home/soham/dotfiles/.tmux.conf ~/.tmux.conf
 rm -rf ~/.oh-my-posh-themes
 ln -s /home/soham/dotfiles/.oh-my-posh-themes ~/.oh-my-posh-themes
 echo "Symlinks created."
+
+mkdir /home/soham/CODE/
+echo "Created /home/soham/CODE/"
