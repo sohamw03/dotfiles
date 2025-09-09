@@ -1,5 +1,17 @@
 #!/bin/bash
 
+# Exit if run as root
+if [ "$EUID" -eq 0 ]; then
+  echo "Please do not run this script as root. Run it as a regular user with sudo privileges."
+  exit 1
+fi
+
+# Ask for the administrator password upfront
+sudo -v
+
+# Keep-alive: update existing sudo time stamp until the script has finished
+while true; do sudo -n true; sleep 60; kill -0 "$" || exit; done 2>/dev/null &
+
 # --- User Setup ---
 # The following commands should be run as root to create a new user and install sudo.
 # pacman -Syu --noconfirm sudo
@@ -8,9 +20,8 @@
 # usermod -aG wheel soham
 # sed -i '/%wheel ALL=(ALL:ALL) ALL/s/^# //g' /etc/sudoers
 # sed -i '/NoProgressBar/s/^/#/g' /etc/pacman.conf
-# su - soham
-# sudo pacman -Syu git
-# cd ~ && git clone https://github.com/sohamw03/dotfiles
+# pacman -Syu git --noconfirm
+# cd /home/soham/ && git clone https://github.com/sohamw03/dotfiles
 
 # This script installs the tools and configurations from the dotfiles.
 
