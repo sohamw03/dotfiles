@@ -12,3 +12,4 @@
 !pr.sh
 !**/*/key-bindings.bash
 !install_arch.sh
+!.zshrc

@@ -155,8 +155,6 @@ eval "$(mise env -s bash go)"
 export PATH=$PATH:/home/test/bin
 eval "$(oh-my-posh init bash --config /home/soham/.oh-my-posh-themes/catppuccin_mocha.omp.json)"
 
-export LANG="en_IN.utf8"
-
 # Tmux | Attach to new or existing tmux session
 if [ -n "$PS1" ] && [ -z "$TMUX" ]; then
     # Create session 'soham' or attach to 'soham' if already exists.
@@ -165,6 +163,7 @@ fi
 if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
     git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 fi
+
 # bun
 export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
