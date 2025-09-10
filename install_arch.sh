@@ -51,6 +51,7 @@ paru -S --noconfirm \
     fd \
     htop \
     btop \
+    zsh \
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
@@ -104,3 +105,8 @@ echo "Symlinks created."
 
 mkdir /home/soham/CODE/
 echo "Created /home/soham/CODE/"
+
+# --- Switch to Zsh ---
+echo "Switching shell to Zsh..."
+sudo chsh -s "$(which zsh)" soham
+echo "Shell changed to Zsh. Please log out and log back in for the changes to take effect."
