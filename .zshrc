@@ -7,11 +7,14 @@ setopt histignorealldups sharehistory
 bindkey -e
 
 # Use modern completion system
-# autoload -Uz compinit && compinit
+autoload -Uz compinit && compinit
 
 # ---------------- zsh-autosuggestions ---------------- #
 if [ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
     source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+if [ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]; then
+    source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 fi
 
 ZSH_AUTOSUGGEST_HIGHLIGHT_STYLE='fg=8'
@@ -135,7 +138,7 @@ eval "$(zoxide init zsh)"
 alias cd=z
 
 # ---------------- mise ---------------- #
-eval "$($(which mise) activate zsh)"
+eval "$(mise activate zsh)"
 mise() { command mise "$@" $([[ $1 == u || $1 == use ]] && echo -g); }
 export MISE_NPM_BUN=true
 

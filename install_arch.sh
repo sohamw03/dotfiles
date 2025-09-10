@@ -52,6 +52,7 @@ paru -S --noconfirm \
     htop \
     btop \
     zsh \
+    zsh_autosuggestions \
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
