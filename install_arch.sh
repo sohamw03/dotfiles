@@ -56,6 +56,7 @@ zsh_autosuggestions \
 yazi \
 vlc \
 vlc-plugins-all \
+github-cli \
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
