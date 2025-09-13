@@ -31,28 +31,31 @@ rm -rf paru
 
 # --- Package Manager Installations (with Paru) ---
 paru -S --noconfirm \
-    fzf \
-    tmux \
-    lazygit \
-    uv \
-    zoxide \
-    ripgrep \
-    unzip \
-    lua \
-    wget \
-    git-delta \
-    eza \
-    mise \
-    oh-my-posh-bin \
-    neovim \
-    less \
-    bun-bin \
-    git \
-    fd \
-    htop \
-    btop \
-    zsh \
-    zsh_autosuggestions \
+fzf \
+tmux \
+lazygit \
+uv \
+zoxide \
+ripgrep \
+unzip \
+lua \
+wget \
+git-delta \
+eza \
+mise \
+oh-my-posh-bin \
+neovim \
+less \
+bun-bin \
+git \
+fd \
+htop \
+btop \
+zsh \
+zsh_autosuggestions \
+yazi \
+vlc \
+vlc-plugins-all \
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
@@ -70,6 +73,7 @@ mise use -g python@3.12 node@24 go@latest gemini-cli@latest
 # --- Neovim Configuration ---
 echo "Installing Neovim configuration..."
 NVIM_CONFIG_DIR="$HOME/.config/nvim"
+git clone https://github.com/sohamw03/neovim $HOME/dotfiles/arch.config/nvim
 
 # Remove existing config if it exists
 if [ -d "$NVIM_CONFIG_DIR" ]; then
@@ -102,6 +106,7 @@ rm -f ~/.tmux.conf
 ln -s /home/soham/dotfiles/.tmux.conf ~/.tmux.conf
 rm -rf ~/.oh-my-posh-themes
 ln -s /home/soham/dotfiles/.oh-my-posh-themes ~/.oh-my-posh-themes
+bash $HOME/dotfiles/arch.config/link.sh
 echo "Symlinks created."
 
 mkdir /home/soham/CODE/

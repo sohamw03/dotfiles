@@ -1,15 +1,1 @@
-*
-
-!.gitignore
-!.bashrc
-!.gitconfig
-!.inputrc
-!.profile
-!.selected_editor
-!.tmux.conf
-!*/
-!.oh-my-posh-themes/*
-!pr.sh
-!**/*/key-bindings.bash
-!install_arch.sh
-!.zshrc
+arch.config/nvim/
