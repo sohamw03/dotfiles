@@ -15,8 +15,13 @@ uwsm-git \
 hypridle \
 hyprpaper \
 swayosd-git \
+pipewire \
+wireplumber \
+pipewire-pulse \
+pipewire-alsa
 
 sudo systemctl enable --now swayosd-libinput-backend.service
+sudo systemctl --user enable --now pipewire wireplumber pipewire-pulse
 
 # Elephant
 git clone https://github.com/abenz1267/elephant $HOME/elephant
