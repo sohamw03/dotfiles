@@ -1,7 +1,7 @@
 !# /usr/bin/env bash
 
 currdir = $(pwd)
-paru -Syu \
+paru -Syu --noconfirm \
 hyprland \
 xdg-desktop-portal-hyprland \
 sddm \
@@ -18,7 +18,8 @@ swayosd-git \
 pipewire \
 wireplumber \
 pipewire-pulse \
-pipewire-alsa
+pipewire-alsa \
+sddm-silent-theme
 
 sudo systemctl enable --now swayosd-libinput-backend.service
 sudo systemctl --user enable --now pipewire wireplumber pipewire-pulse
@@ -41,4 +42,15 @@ cargo build --release
 sudo mv target/release/walker /usr/local/bin/
 rm -rf $HOME/walker
 
+# SDDM Silent theme
+sudo tee -a /etc/sddm.conf << 'EOF'
+[General]
+InputMethod=qtvirtualkeyboard
+GreeterEnvironment=QML2_IMPORT_PATH=/usr/share/sddm/themes/silent/components/,QT_IM_MODULE=qtvirtualkeyboard,LIBVA_DRIVER_NAME=,QT_MULTIMEDIA_PREFERRED_PLUGINS=
+
+[Theme]
+Current=silent
+EOF
+
 cd "$(currdir)"
+
