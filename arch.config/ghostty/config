@@ -44,4 +44,5 @@ background-opacity = 0
 # resize-overlay-duration = 4s 200ms
 
 keybind = "ctrl+enter=ignore"
+font-size = 14
 confirm-close-surface = false
