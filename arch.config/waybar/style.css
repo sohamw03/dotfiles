@@ -1,14 +1,15 @@
 /* @import "../omarchy/current/theme/waybar.css"; */
 
 * {
-  background-color: @background;
-  color: @foreground;
+  background-color: #181818;
+  color: #dadada;
 
   border: none;
   border-radius: 0;
   min-height: 0;
-  font-family: CaskaydiaMono Nerd Font;
-  font-size: 12px;
+  font-family: CaskaydiaMono;
+  font-size: 14px;
+  font-weight: bold;
 }
 
 .modules-left {
