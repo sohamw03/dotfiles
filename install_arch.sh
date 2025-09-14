@@ -57,6 +57,7 @@ yazi \
 vlc \
 vlc-plugins-all \
 github-cli \
+tlrc
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
