@@ -118,3 +118,11 @@ echo "Created /home/soham/CODE/"
 echo "Switching shell to Zsh..."
 sudo chsh -s "$(which zsh)" soham
 echo "Shell changed to Zsh. Please log out and log back in for the changes to take effect."
+
+# --- Setup DNS ---
+conf="/etc/systemd/resolved.conf"
+sudo sed -i '/^DNS=/d' $conf
+sudo sed -i '/^FallbackDNS=/d' $conf
+echo -e "[Resolve]\nDNS=1.1.1.1 1.0.0.1 8.8.8.8 8.8.4.4\nFallbackDNS=2606:4700:4700::1111 2606:4700:4700::1001 2001:4860:4860::8888 2001:4860:4860::8844" | sudo tee -a $conf
+sudo systemctl restart systemd-resolved
+
