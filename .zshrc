@@ -141,11 +141,21 @@ alias cd=z
 eval "$(mise activate zsh)"
 mise() { command mise "$@" $([[ $1 == u || $1 == use ]] && echo -g); }
 export MISE_NPM_BUN=true
+eval "$(mise completion zsh)"
 
 # ---------------- Screen Temp ---------------- #
 if command -v sct &>/dev/null; then
   sct 4250
 fi
+
+# ---------------- Yazi ---------------- #
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
+}
 
 # --------------- .inputrc -----------------
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'

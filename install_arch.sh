@@ -70,7 +70,7 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 # --- Go (via mise) ---
-mise use -g python@3.12 node@24 go@latest gemini-cli@latest
+mise use -g node@24 go@latest gemini-cli@nightly usage
 
 # --- Neovim Configuration ---
 echo "Installing Neovim configuration..."

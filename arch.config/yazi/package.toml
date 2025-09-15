@@ -1,0 +1,14 @@
+[[plugin.deps]]
+use = "yazi-rs/plugins:git"
+rev = "d7588f6"
+hash = "63b6c222bf2103b3023389dde5e2ecfe"
+
+[[flavor.deps]]
+use = "kmlupreti/ayu-dark"
+rev = "648a178"
+hash = "1a8af82f6246942bd700316a16c4e14a"
+
+[[flavor.deps]]
+use = "bennyyip/gruvbox-dark"
+rev = "e5e1aef"
+hash = "eb88137cf13a796225254344bf6def2c"

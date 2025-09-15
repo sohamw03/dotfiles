@@ -1,0 +1,11 @@
+[mgr]
+prepend_keymap = [
+  { on = [
+    "d",
+    "d",
+  ], run = "remove", desc = "Trash selected files" },
+  { on = [
+    "D",
+    "D",
+  ], run = "remove --permanently", desc = "Permanently delete selected files" },
+]
