@@ -1,6 +1,9 @@
 [mgr]
 linemode = "size"
 
+[preview]
+max_height = 700
+
 [opener]
 edit = [
   { run = 'nvim %*', block = true, for = "windows", desc = "Edit in Neovim" },
