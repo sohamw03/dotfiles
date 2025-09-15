@@ -46,3 +46,6 @@ background-opacity = 0
 keybind = "ctrl+enter=ignore"
 font-size = 14
 confirm-close-surface = false
+
+# Theme
+theme = /home/soham/.config/ghostty/themes/Elemental

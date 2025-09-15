@@ -5,7 +5,7 @@
 # If not running interactively, don't do anything
 case $- in
     *i*) ;;
-    *) return;;
+    *) return ;;
 esac
 
 # don't put duplicate lines or lines starting with space in the history.
@@ -37,7 +37,7 @@ fi
 
 # set a fancy prompt (non-color, unless we know we "want" color)
 case "$TERM" in
-    xterm-color|*-256color) color_prompt=yes;;
+    xterm-color | *-256color) color_prompt=yes ;;
 esac
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
@@ -47,12 +47,12 @@ esac
 
 if [ -n "$force_color_prompt" ]; then
     if [ -x /usr/bin/tput ] && tput setaf 1 >&/dev/null; then
-	# We have color support; assume it's compliant with Ecma-48
-	# (ISO/IEC-6429). (Lack of such support is extremely rare, and such
-	# a case would tend to support setf rather than setaf.)
-	color_prompt=yes
+        # We have color support; assume it's compliant with Ecma-48
+        # (ISO/IEC-6429). (Lack of such support is extremely rare, and such
+        # a case would tend to support setf rather than setaf.)
+        color_prompt=yes
     else
-	color_prompt=
+        color_prompt=
     fi
 fi
 
@@ -65,11 +65,10 @@ unset color_prompt force_color_prompt
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-    xterm*|rxvt*)
-	PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-	;;
-    *)
-	;;
+    xterm* | rxvt*)
+        PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
+        ;;
+    *) ;;
 esac
 
 # enable color support of ls and also add handy aliases
@@ -110,9 +109,9 @@ fi
 # sources /etc/bash.bashrc).
 if ! shopt -oq posix; then
     if [ -f /usr/share/bash-completion/bash_completion ]; then
-	. /usr/share/bash-completion/bash_completion
+        . /usr/share/bash-completion/bash_completion
     elif [ -f /etc/bash_completion ]; then
-	. /etc/bash_completion
+        . /etc/bash_completion
     fi
 fi
 
@@ -137,11 +136,11 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 # FzF
 # Find and source fzf keybindings
 if [ -f /usr/share/fzf/key-bindings.bash ]; then
-  source /usr/share/fzf/key-bindings.bash
+    source /usr/share/fzf/key-bindings.bash
 elif [ -f /usr/share/doc/fzf/examples/key-bindings.bash ]; then
-  source /usr/share/doc/fzf/examples/key-bindings.bash
+    source /usr/share/doc/fzf/examples/key-bindings.bash
 elif [ -f ~/.fzf/shell/key-bindings.bash ]; then
-  source ~/.fzf/shell/key-bindings.bash
+    source ~/.fzf/shell/key-bindings.bash
 fi
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
@@ -182,13 +181,14 @@ export UV_NO_MANAGED_PYTHON=1
 export UV_PYTHON_DOWNLOADS=never
 export UV_VENV_SEED=1
 
+uvpath=$(which uv)
 uv() {
-  if [[ "$1" == "sync" ]]; then
-    /usr/bin/uv venv
-    /usr/bin/uv sync "$@"
-  else
-    /usr/bin/uv "$@"
-  fi
+    if [[ "$1" == "sync" ]]; then
+        "$uvpath" venv
+        "$uvpath" sync "$@"
+    else
+        "$uvpath" "$@"
+    fi
 }
 
 # Alias for activating .venv
@@ -201,16 +201,16 @@ alias cd=z
 
 # ripgrep with delta
 rg() {
-  command rg --json "$@" | delta
+    command rg --json "$@" | delta
 }
 
 # ---------------- Yazi ---------------- #
 function y() {
-  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
-  yazi "$@" --cwd-file="$tmp"
-  IFS= read -r -d '' cwd < "$tmp"
-  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
-  rm -f -- "$tmp"
+    local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+    yazi "$@" --cwd-file="$tmp"
+    IFS= read -r -d '' cwd <"$tmp"
+    [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+    rm -f -- "$tmp"
 }
 
 # eza

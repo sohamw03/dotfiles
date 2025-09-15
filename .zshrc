@@ -124,13 +124,14 @@ export BUN_INSTALL="$HOME/.bun"
 export UV_NO_MANAGED_PYTHON=1
 export UV_PYTHON_DOWNLOADS=never
 export UV_VENV_SEED=1
+uvpath=$(which uv)
 uv() {
-  if [[ "$1" == "sync" ]]; then
-    uv venv
-    uv sync "$@"
-  else
-    uv "$@"
-  fi
+    if [[ "$1" == "sync" ]]; then
+        "$uvpath" venv
+        "$uvpath" sync "$@"
+    else
+        "$uvpath" "$@"
+    fi
 }
 
 # ---------------- zoxide ---------------- #
