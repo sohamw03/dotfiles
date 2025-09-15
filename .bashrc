@@ -184,10 +184,10 @@ export UV_VENV_SEED=1
 
 uv() {
   if [[ "$1" == "sync" ]]; then
-    uv venv
-    uv sync "$@"
+    /usr/bin/uv venv
+    /usr/bin/uv sync "$@"
   else
-    uv "$@"
+    /usr/bin/uv "$@"
   fi
 }
 
@@ -202,6 +202,15 @@ alias cd=z
 # ripgrep with delta
 rg() {
   command rg --json "$@" | delta
+}
+
+# ---------------- Yazi ---------------- #
+function y() {
+  local tmp="$(mktemp -t "yazi-cwd.XXXXXX")" cwd
+  yazi "$@" --cwd-file="$tmp"
+  IFS= read -r -d '' cwd < "$tmp"
+  [ -n "$cwd" ] && [ "$cwd" != "$PWD" ] && builtin cd -- "$cwd"
+  rm -f -- "$tmp"
 }
 
 # eza

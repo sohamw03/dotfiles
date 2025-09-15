@@ -1,5 +1,6 @@
 [mgr]
 linemode = "size"
+show_hidden = true
 
 [preview]
 max_height = 700
@@ -7,11 +8,14 @@ max_height = 700
 [opener]
 edit = [
   { run = 'nvim %*', block = true, for = "windows", desc = "Edit in Neovim" },
-  { run = 'nvim "$0"', block = true, for = "unix", desc = "Edit in Neovim" },
+  { run = 'nvim "$@"', block = true, for = "unix", desc = "Edit in Neovim" },
+]
+play = [
+  { run = 'vlc "$@"', orphan = true, block = false, for = "unix", desc = "Play media in VLC" },
 ]
 open = [
   { run = "pwsh.exe -NoProfile -NoLogo -Command \"Invoke-Item -LiteralPath '%0'\"", for = "windows", desc = "Open by default app" },
-  { run = 'xdg-open "$0"', for = "unix", desc = "Open with default app" },
+  { run = 'xdg-open "$@"', for = "unix", desc = "Open with default app" },
 ]
 
 [open]
@@ -20,6 +24,7 @@ rules = [
   { mime = "text/*", use = "edit" },
   { name = "*.toml", use = "edit" },
   { name = "*.lua", use = "edit" },
+  { mime = "video/*", use = "play", for = "unix" },
   # Fallback
   { name = "*", use = "open" },
 ]
