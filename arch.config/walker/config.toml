@@ -1,7 +1,7 @@
 close_when_open = true
-# theme = "omarchy-default"
-theme_base = []
-theme_location = ["./themes/"]
+theme = "omarchy-default"
+# theme_base = []
+theme_localtion = ["themes"]
 hotreload_theme = true
 force_keyboard_focus = true
 timeout = 60
@@ -18,13 +18,12 @@ path = "~/.config/hypr/hyprland.conf"
 hidden = true
 
 [builtins.applications]
-# launch_prefix = "uwsm app -- "
+launch_prefix = "uwsm app -- "
 placeholder = " Search..."
 prioritize_new = false
 context_aware = false
 show_sub_when_single = false
-history = false
-icon = ""
+history = true
 hidden = true
 
 [builtins.applications.actions]
@@ -45,7 +44,17 @@ switcher_only = true
 hidden = true
 
 [builtins.clipboard]
-hidden = true
+always_put_new_on_top = true
+exec = "wl-copy"
+weight = 5
+icon = "user-bookmarks"
+name = "clipboard"
+avoid_line_breaks = true
+placeholder = "Clipboard"
+image_height = 300
+max_entries = 10
+switcher_only = true
+hidden = false
 
 [builtins.commands]
 hidden = true
@@ -59,8 +68,10 @@ icon = ""
 prefix = ":"
 
 [builtins.symbols]
+name = "Symbols"
 after_copy = ""
-hidden = true
+hidden = false
+prefix = "@"
 
 [builtins.finder]
 use_fd = true
@@ -82,6 +93,13 @@ hidden = true
 [builtins.websearch]
 switcher_only = true
 hidden = true
+prefix = "?"
 
-[builtins.translation]
-hidden = true
+[builtins.websearch.entries]
+name = "Unduck"
+url = "https://unduck-sw.vercel.app?q=%TERM%"
+
+[keys]
+close = ["esc", "ctrl ["]
+next = ["down", "ctrl n"]
+prev = ["up", "ctrl p"]

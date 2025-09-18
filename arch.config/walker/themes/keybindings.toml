@@ -1,5 +1,5 @@
 [ui.window.box]
-width = 964
+width = 164
 min_width = 964
 max_width = 964
 
@@ -46,3 +46,5 @@ hide = false
 min_width = 900
 width = 900
 max_width = 900
+
+
