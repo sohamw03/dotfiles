@@ -145,6 +145,18 @@ fi
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+# Function to launch fd with fzf and open selection in nvim
+fzf_edit_file() {
+    local file
+    file=$(fd --type f . ~ | fzf --bind "esc:abort")
+    if [[ -n "$file" ]]; then
+        nvim "$file"
+    fi
+}
+# Bind Ctrl-P to call the function in bash
+bind -x '"\C-f":fzf_edit_file'
 
 # GoLang
 export PATH=$PATH:$HOME/go/bin

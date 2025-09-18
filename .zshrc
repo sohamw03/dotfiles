@@ -108,6 +108,19 @@ fi
 export FZF_DEFAULT_COMMAND="fd . $HOME"
 export FZF_CTRL_T_COMMAND="$FZF_DEFAULT_COMMAND"
 export FZF_ALT_C_COMMAND="fd -t d . $HOME"
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+
+# Function to launch fd with fzf and open selection in nvim
+fzf_edit_file() {
+    local file
+    file=$(fd --type f . ~ | fzf --bind "esc:abort")
+    if [[ -n "$file" ]]; then
+        nvim "$file"
+        zle reset-prompt
+    fi
+}
+zle -N fzf_edit_file
+bindkey '^f' fzf_edit_file
 
 # ---------------- OhMyPosh ---------------- #
 eval "$(oh-my-posh init zsh --config /home/soham/.oh-my-posh-themes/catppuccin_mocha.omp.json)"
