@@ -80,8 +80,8 @@ alias act='source .venv/bin/activate'
 alias dct='deactivate'
 
 # eza
-alias ls='eza -a --icons --group-directories-first --no-quotes'
-alias ll='eza -la --icons --group-directories-first --no-quotes --header'
+alias ls='eza --icons --group-directories-first --no-quotes'
+alias la='eza -la --icons --group-directories-first --no-quotes --header'
 
 # ---------------- Functions ---------------- #
 bt() { sudo brightnessctl set "$1"% }
@@ -137,15 +137,15 @@ export BUN_INSTALL="$HOME/.bun"
 export UV_NO_MANAGED_PYTHON=1
 export UV_PYTHON_DOWNLOADS=never
 export UV_VENV_SEED=1
-uvpath=$(which uv)
-uv() {
-    if [[ "$1" == "sync" ]]; then
-        "$uvpath" venv
-        "$uvpath" sync "$@"
-    else
-        "$uvpath" "$@"
-    fi
-}
+# uvpath=$(which uv)
+# uv() {
+#     if [[ "$1" == "sync" ]]; then
+#         "$uvpath" venv --seed
+#         "$uvpath" sync "$@"
+#     else
+#         "$uvpath" "$@"
+#     fi
+# }
 
 # ---------------- zoxide ---------------- #
 eval "$(zoxide init zsh)"
