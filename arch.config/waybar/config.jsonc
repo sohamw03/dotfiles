@@ -16,7 +16,7 @@
     "bluetooth",
     "network",
     "pulseaudio",
-    "cpu",
+    "custom/sysinfo",
     "battery"
   ],
   "hyprland/workspaces": {
@@ -43,9 +43,12 @@
       "5": []
     }
   },
-  "cpu": {
-    "interval": 5,
-    "format": "󰍛",
+  "custom/sysinfo": {
+    "format": "{}",
+    "tooltip": true,
+    "interval": 3,
+    "exec": "~/.config/waybar/sys-info.sh",
+    "return-type": "json",
     "on-click": "ghostty -e btop"
   },
   "clock": {
@@ -119,7 +122,7 @@
     ]
   },
   "custom/expand-icon": {
-    "format": " ",
+    "format": " ",
     "tooltip": false
   },
   "tray": {

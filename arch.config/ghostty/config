@@ -49,3 +49,30 @@ confirm-close-surface = false
 
 # Theme
 theme = /home/soham/.config/ghostty/themes/Elemental
+
+# Prefix / Leader configuration
+# Note: Ghostty prefix sequences wait indefinitely for the next key
+
+# New Splits (Horizontal and Vertical)
+keybind = alt+i>v=new_split:right
+keybind = alt+i>s=new_split:down
+
+# Closing Panes (Splits)
+keybind = alt+i>x=close_surface
+
+# Pane Navigation (Vim-style)
+keybind = alt+i>h=goto_split:left
+keybind = alt+i>j=goto_split:bottom
+keybind = alt+i>k=goto_split:top
+keybind = alt+i>l=goto_split:right
+
+# Pane Resizing
+keybind = alt+i>shift+j=resize_split:down,30
+keybind = alt+i>shift+k=resize_split:up,30
+keybind = alt+i>shift+h=resize_split:left,30
+keybind = alt+i>shift+l=resize_split:right,30
+
+# Tab (Window) Management
+keybind = alt+i>c=new_tab
+keybind = alt+i>[=previous_tab
+keybind = alt+i>]=next_tab

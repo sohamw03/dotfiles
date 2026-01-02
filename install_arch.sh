@@ -1,4 +1,4 @@
-#!/bin/bash
+#! /usr/bin/env bash
 
 # Exit if run as root
 if [ "$EUID" -eq 0 ]; then
@@ -30,7 +30,7 @@ cd ..
 rm -rf paru
 
 # --- Package Manager Installations (with Paru) ---
-paru -S --noconfirm \
+paru -Syu --noconfirm \
 fzf \
 tmux \
 lazygit \
@@ -57,7 +57,12 @@ yazi \
 vlc \
 vlc-plugins-all \
 github-cli \
-tlrc
+tlrc \
+ookla-speedtest-bin \
+zed \
+spotify-launcher \
+freedownloadmanager \
+localsend
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
@@ -70,7 +75,7 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 # --- Go (via mise) ---
-mise use -g node@24 go@latest gemini-cli@nightly usage
+mise use -g node@25 go@latest gemini-cli@nightly usage
 
 # --- Neovim Configuration ---
 echo "Installing Neovim configuration..."
@@ -108,7 +113,7 @@ rm -f ~/.tmux.conf
 ln -s /home/soham/dotfiles/.tmux.conf ~/.tmux.conf
 rm -rf ~/.oh-my-posh-themes
 ln -s /home/soham/dotfiles/.oh-my-posh-themes ~/.oh-my-posh-themes
-bash $HOME/dotfiles/arch.config/link.sh
+/usr/bin/env bash $HOME/dotfiles/arch.config/link.sh
 echo "Symlinks created."
 
 mkdir /home/soham/CODE/

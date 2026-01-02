@@ -16,15 +16,15 @@
   margin-left: 8px;
 }
 
-.modules-right {
-  margin-right: 8px;
-}
+/* .modules-right { */
+/*   margin-right: 8px; */
+/* } */
 
 #workspaces button {
   all: initial;
   padding: 0 6px;
-  margin: 0 1.5px;
-  min-width: 9px;
+  padding: 0 1.5px;
+  min-width: 20px;
 }
 
 #workspaces button.empty {
@@ -33,6 +33,7 @@
 
 #tray,
 #cpu,
+#custom-sysinfo
 #battery,
 #network,
 #bluetooth,
@@ -40,11 +41,16 @@
 #clock,
 #custom-omarchy {
   min-width: 12px;
-  margin: 0 7.5px;
+  padding: 0 7.5px;
+}
+
+#custom-sysinfo {
+  padding-left: 7px;
+  padding-right: 8px;
 }
 
 #custom-expand-icon {
-  margin-right: 7px;
+  padding-right: 0px;
 }
 
 tooltip {

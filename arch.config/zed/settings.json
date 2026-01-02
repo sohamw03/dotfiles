@@ -7,13 +7,20 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "features": {
+    "edit_prediction_provider": "copilot"
+  },
   "vim_mode": true,
-  "icon_theme": "Material Icon Theme",
+  "icon_theme": {
+    "mode": "system",
+    "light": "Material Icon Theme",
+    "dark": "Material Icon Theme"
+  },
   "ui_font_size": 18,
   "buffer_font_size": 18,
   "theme": {
-    "mode": "dark",
-    "light": "One Light",
-    "dark": "Gruvbox Dark Soft"
+    "mode": "system",
+    "light": "Ayu Light",
+    "dark": "Ayu Dark"
   }
 }

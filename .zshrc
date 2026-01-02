@@ -80,7 +80,7 @@ alias act='source .venv/bin/activate'
 alias dct='deactivate'
 
 # eza
-alias ls='eza --icons --group-directories-first --no-quotes'
+alias ls='eza -a --icons --group-directories-first --no-quotes'
 alias la='eza -la --icons --group-directories-first --no-quotes --header'
 
 # ---------------- Functions ---------------- #
@@ -126,9 +126,9 @@ bindkey '^f' fzf_edit_file
 eval "$(oh-my-posh init zsh --config /home/soham/.oh-my-posh-themes/catppuccin_mocha.omp.json)"
 
 # ---------------- Tmux ---------------- #
-if [[ -n $PS1 && -z $TMUX ]]; then
-  tmux new-session -A -s soham -c "$(pwd)"
-fi
+# if [[ -n $PS1 && -z $TMUX ]]; then
+#   tmux new-session -A -s soham -c "$(pwd)"
+# fi
 
 # ---------------- Bun ---------------- #
 export BUN_INSTALL="$HOME/.bun"
@@ -180,6 +180,17 @@ bindkey '^[Z' reverse-menu-complete  # Shift+Tab
 
 setopt auto_list
 setopt auto_menu
+
+# Fix Home/End keys
+bindkey "\e[H" beginning-of-line
+bindkey "\e[F" end-of-line
+
+# Fix Alt+Left/Right (Word Movement)
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;3C" forward-word
+
+# Fix Delete key (often needed as well)
+bindkey "\e[3~" delete-char
 
 # --- History prefix search with ↑/↓ ---
 bindkey '^[[A' history-beginning-search-backward
