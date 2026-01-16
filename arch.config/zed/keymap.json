@@ -186,7 +186,7 @@
     },
   },
   {
-    "context": "!Editor",
+    "context": "!Editor && !Terminal",
     "bindings": {
       "space x": "project_panel::ToggleFocus",
     },
@@ -240,7 +240,7 @@
     },
   },
   {
-    "context": "!Editor",
+    "context": "!Editor && !Terminal",
     "bindings": {
       "space a": "agent::ToggleFocus",
     },
@@ -256,5 +256,5 @@
     "bindings": {
       "ctrl-[": "menu::Cancel"
     }
-  }
+  },
 ]
