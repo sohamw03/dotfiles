@@ -1,0 +1,260 @@
+// Zed keymap
+//
+// For information on binding keys, see the Zed
+// documentation: https://zed.dev/docs/key-bindings
+//
+// To see the default key bindings run `zed: open default keymap`
+// from the command palette.
+[
+  {
+    "context": "Workspace",
+    "bindings": {
+      // "shift shift": "file_finder::Toggle"
+    },
+  },
+  {
+    "context": "Editor && vim_mode == insert",
+    "bindings": {
+      // "j k": "vim::NormalBefore"
+    },
+  },
+  {
+    "context": "((os != macos && Editor) && edit_prediction_conflict)",
+    "bindings": {
+      "tab": "editor::AcceptEditPrediction",
+    },
+  },
+  {
+    "context": "",
+    "bindings": {
+      "alt-shift-l": "pane::SwapItemRight",
+    },
+  },
+  {
+    "context": "",
+    "bindings": {
+      "alt-w": "pane::CloseActiveItem",
+    },
+  },
+  {
+    "context": "",
+    "bindings": {
+      "alt-h": "pane::ActivatePreviousItem",
+    },
+  },
+  {
+    "context": "",
+    "bindings": {
+      "alt-l": "pane::ActivateNextItem",
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction_conflict)",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "(Editor && edit_prediction)",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "((os != macos && Editor) && edit_prediction_conflict)",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "GitCommit > Editor",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "CommitEditor > Editor",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "alt-l": null,
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor && !Terminal))",
+    "bindings": {
+      "ctrl-w ctrl-g t": null,
+    },
+  },
+  {
+    "context": "(!Editor && !Terminal)",
+    "bindings": {
+      "] b": null,
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor && !Terminal))",
+    "bindings": {
+      "ctrl-w g t": null,
+    },
+  },
+  {
+    "context": "vim_operator == helix_next",
+    "bindings": {
+      "b": null,
+    },
+  },
+  {
+    "context": "((vim_mode == normal || vim_mode == visual) || vim_mode == operator)",
+    "bindings": {
+      "] b": null,
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor && !Terminal))",
+    "bindings": {
+      "ctrl-w ctrl-g shift-t": null,
+    },
+  },
+  {
+    "context": "((VimControl && !menu) || (!Editor && !Terminal))",
+    "bindings": {
+      "ctrl-w g shift-t": null,
+    },
+  },
+  {
+    "context": "((vim_mode == normal || vim_mode == visual) || vim_mode == operator)",
+    "bindings": {
+      "[ b": null,
+    },
+  },
+  {
+    "context": "(!Editor && !Terminal)",
+    "bindings": {
+      "[ b": null,
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "alt-w": null,
+    },
+  },
+  {
+    "context": "Editor",
+    "bindings": {
+      "alt-shift-h": null,
+    },
+  },
+  {
+    "context": "AgentPanel",
+    "bindings": {
+      "alt-shift-l": null,
+    },
+  },
+  {
+    "context": "Onboarding",
+    "bindings": {
+      "alt-shift-l": null,
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-shift-pagedown": null,
+    },
+  },
+  {
+    "bindings": {
+      "alt-shift-h": "pane::SwapItemLeft",
+    },
+  },
+  {
+    "context": "Pane",
+    "bindings": {
+      "ctrl-shift-pageup": null,
+    },
+  },
+  {
+    "context": "((Editor) && vim_mode == normal)",
+    "bindings": {
+      "space x": "project_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "!Editor",
+    "bindings": {
+      "space x": "project_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "(GitPanel > Editor) && vim_mode == normal",
+    "bindings": {
+      "space g": "workspace::ToggleLeftDock",
+    },
+  },
+  {
+    "context": "(AgentPanel > Editor) && vim_mode == normal",
+    "bindings": {
+      "space a": "workspace::ToggleRightDock",
+    },
+  },
+  {
+    "context": "ProjectPanel",
+    "bindings": {
+      "space x": "workspace::ToggleRightDock",
+    },
+  },
+  {
+    "context": "((Editor) && vim_mode == normal)",
+    "bindings": {
+      "space g": "git_panel::ToggleFocus",
+    },
+  },
+  {
+    "context": "Editor && vim_mode == normal",
+    "bindings": {
+      "space t": "terminal_panel::Toggle",
+    },
+  },
+  {
+    "context": "Terminal",
+    "bindings": {
+      "ctrl-d": "terminal_panel::Toggle",
+    },
+  },
+  {
+    "context": "(ProjectPanel && not_editing)",
+    "bindings": {
+      "ctrl-[": "vim::ToggleProjectPanelFocus",
+    },
+  },
+  {
+    "context": "(Editor && vim_mode == normal && !AgentPanel)",
+    "bindings": {
+      "space a": "agent::ToggleFocus",
+    },
+  },
+  {
+    "context": "!Editor",
+    "bindings": {
+      "space a": "agent::ToggleFocus",
+    },
+  },
+  {
+    "context": "((vim_mode == helix_normal || vim_mode == helix_select) && !menu)",
+    "bindings": {
+      "space a": null,
+    },
+  },
+  {
+    "context": "Picker > Editor",
+    "bindings": {
+      "ctrl-[": "menu::Cancel"
+    }
+  }
+]

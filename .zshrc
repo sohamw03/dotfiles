@@ -197,3 +197,15 @@ bindkey '^[[A' history-beginning-search-backward
 bindkey '^[[B' history-beginning-search-forward
 bindkey '^[OA' history-beginning-search-backward
 bindkey '^[OB' history-beginning-search-forward
+
+autoload -U select-word-style
+select-word-style bash
+bindkey  "^[[1~"   beginning-of-line
+bindkey  "^[[4~"   end-of-line
+bindkey "^[[1;3D" backward-word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;3C" forward-word
+bindkey "^[[1;5C" forward-word
+bindkey "^[[3~" delete-char
+bindkey '^H' backward-kill-word
+bindkey '^[[3;5~' kill-word
