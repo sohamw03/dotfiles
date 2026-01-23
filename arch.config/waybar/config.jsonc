@@ -49,7 +49,7 @@
     "interval": 3,
     "exec": "~/.config/waybar/sys-info.sh",
     "return-type": "json",
-    "on-click": "ghostty -e btop"
+    "on-click": "ghostty --class=com.ghostty.btop --font-size=11 -e btop"
   },
   "clock": {
     "format": "{:%A %I:%M %p}",
@@ -68,7 +68,7 @@
     "tooltip-format-disconnected": "Disconnected",
     "interval": 3,
     "nospacing": 1,
-    "on-click": "ghostty -e nmtui"
+    "on-click": "ghostty --class=com.ghostty.floating --font-size=10 -e gazelle"
   },
   "battery": {
     "format": "{capacity}% {icon}",
@@ -101,7 +101,7 @@
   },
   "pulseaudio": {
     "format": "{icon}",
-    "on-click": "ghostty -e wiremix",
+    "on-click": "ghostty --class=com.ghostty.floating --font-size=14 -e wiremix",
     "on-click-right": "pamixer -t",
     "tooltip-format": "Playing at {volume}%",
     "scroll-step": 5,

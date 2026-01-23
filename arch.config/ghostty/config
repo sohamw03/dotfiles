@@ -76,3 +76,6 @@ keybind = alt+i>shift+l=resize_split:right,30
 keybind = alt+i>c=new_tab
 keybind = alt+i>[=previous_tab
 keybind = alt+i>]=next_tab
+
+# Keymaps
+keybind = ctrl+[=text:\x1b

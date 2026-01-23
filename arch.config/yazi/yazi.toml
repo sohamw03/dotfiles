@@ -13,17 +13,22 @@ edit = [
 play = [
   { run = 'vlc "$@"', orphan = true, block = false, for = "unix", desc = "Play media in VLC" },
 ]
+# Added Loupe opener here
+view_image = [
+  { run = 'loupe "$@"', orphan = true, for = "unix", desc = "View in Loupe" },
+]
 open = [
   { run = "pwsh.exe -NoProfile -NoLogo -Command \"Invoke-Item -LiteralPath '%0'\"", for = "windows", desc = "Open by default app" },
   { run = 'xdg-open "$@"', for = "unix", desc = "Open with default app" },
 ]
 
 [open]
-# Replace defaults fully to ensure our rules apply
 rules = [
   { mime = "text/*", use = "edit" },
   { name = "*.toml", use = "edit" },
   { name = "*.lua", use = "edit" },
+  # Added image rule here
+  { mime = "image/*", use = "view_image", for = "unix" },
   { mime = "video/*", use = "play", for = "unix" },
   # Fallback
   { name = "*", use = "open" },

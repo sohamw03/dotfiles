@@ -1,7 +1,7 @@
 autoload -Uz promptinit && promptinit
 # prompt adam1
 
-setopt histignorealldups sharehistory
+setopt sharehistory
 
 # Use emacs keybindings even if our EDITOR is set to vi
 bindkey -e
@@ -66,8 +66,6 @@ PROMPT='%F{green}%n@%m%f:%F{blue}%~%f$ '
 
 # ---------------- Aliases ---------------- #
 alias grep='grep --color=auto'
-alias fgrep='fgrep --color=auto'
-alias egrep='egrep --color=auto'
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" \
   "$(history | tail -n1 | sed -e "s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//")"'
 
@@ -96,7 +94,6 @@ eval "$(mise env -s zsh go)"
 export PATH="$HOME/.bun/bin:$PATH"
 
 # ---------------- FZF ---------------- #
-# (Use zsh bindings instead of bash)
 # Find and source fzf keybindings
 if [ -f /usr/share/fzf/key-bindings.zsh ]; then
   source /usr/share/fzf/key-bindings.zsh
@@ -134,18 +131,9 @@ eval "$(oh-my-posh init zsh --config /home/soham/.oh-my-posh-themes/catppuccin_m
 export BUN_INSTALL="$HOME/.bun"
 
 # ---------------- UV ---------------- #
-export UV_NO_MANAGED_PYTHON=1
-export UV_PYTHON_DOWNLOADS=never
+# export UV_NO_MANAGED_PYTHON=1
+# export UV_PYTHON_DOWNLOADS=never
 export UV_VENV_SEED=1
-# uvpath=$(which uv)
-# uv() {
-#     if [[ "$1" == "sync" ]]; then
-#         "$uvpath" venv --seed
-#         "$uvpath" sync "$@"
-#     else
-#         "$uvpath" "$@"
-#     fi
-# }
 
 # ---------------- zoxide ---------------- #
 eval "$(zoxide init zsh)"
@@ -156,11 +144,6 @@ eval "$(mise activate zsh)"
 mise() { command mise "$@" $([[ $1 == u || $1 == use ]] && echo -g); }
 export MISE_NPM_BUN=true
 eval "$(mise completion zsh)"
-
-# ---------------- Screen Temp ---------------- #
-if command -v sct &>/dev/null; then
-  sct 4250
-fi
 
 # ---------------- Yazi ---------------- #
 function y() {

@@ -1,8 +1,7 @@
 /* @import "../omarchy/current/theme/waybar.css"; */
 
 * {
-  background-color: #181818;
-  color: #dadada;
+  color: #ffffff;
 
   border: none;
   border-radius: 0;
@@ -10,6 +9,10 @@
   font-family: CaskaydiaMono;
   font-size: 14px;
   font-weight: bold;
+}
+
+window#waybar {
+  background-color: #181818;
 }
 
 .modules-left {
@@ -22,7 +25,6 @@
 
 #workspaces button {
   all: initial;
-  padding: 0 6px;
   padding: 0 1.5px;
   min-width: 20px;
 }
@@ -31,28 +33,32 @@
   opacity: 0.5;
 }
 
-#tray,
-#cpu,
-#custom-sysinfo
+#pulseaudio,
+#backlight,
 #battery,
 #network,
 #bluetooth,
-#pulseaudio,
 #clock,
-#custom-omarchy {
-  min-width: 12px;
-  padding: 0 7.5px;
-}
-
 #custom-sysinfo {
-  padding-left: 7px;
-  padding-right: 8px;
+    min-width: 20px; 
+    padding-left: 4px;
+    padding-right: 4px;
 }
 
-#custom-expand-icon {
-  padding-right: 0px;
-}
+/* #custom-expand-icon { */
+/*   padding-right: 0px; */
+/* } */
 
 tooltip {
-  padding: 2px;
+    /* The glassy background container */
+    background-color: rgba(17, 17, 17, 0.8);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+}
+
+tooltip label {
+    /* CRITICAL: Remove the solid color from the text box so the glass shows */
+    background-color: transparent;
+    color: #dadada;
+    padding: 10px;
 }

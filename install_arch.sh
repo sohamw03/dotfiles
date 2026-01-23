@@ -30,7 +30,8 @@ cd ..
 rm -rf paru
 
 # --- Package Manager Installations (with Paru) ---
-paru -Syu --noconfirm \
+paru -Syu --noconfirm --needed \
+base-devel \
 fzf \
 tmux \
 lazygit \
@@ -46,7 +47,7 @@ mise \
 oh-my-posh-bin \
 neovim \
 less \
-bun-bin \
+bun \
 git \
 fd \
 htop \
@@ -62,7 +63,8 @@ ookla-speedtest-bin \
 zed \
 spotify-launcher \
 freedownloadmanager \
-localsend
+localsend \
+man-db
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
@@ -75,7 +77,7 @@ if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
 fi
 
 # --- Go (via mise) ---
-mise use -g node@25 go@latest gemini-cli@nightly usage
+mise use -g node@25 go@latest gemini-cli usage
 
 # --- Neovim Configuration ---
 echo "Installing Neovim configuration..."
@@ -99,6 +101,8 @@ echo "Creating symlinks for dotfiles..."
 cd /home/soham/
 rm -f ~/.bashrc
 ln -s /home/soham/dotfiles/.bashrc ~/.bashrc
+rm -f ~/.zshrc
+ln -s /home/soham/dotfiles/.zshrc ~/.zshrc
 rm -f ~/.gitconfig
 ln -s /home/soham/dotfiles/.gitconfig ~/.gitconfig
 rm -f ~/.gitignore

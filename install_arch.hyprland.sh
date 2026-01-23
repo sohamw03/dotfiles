@@ -1,7 +1,7 @@
 #! /usr/bin/env bash
 
 currdir=$(pwd)
-paru -Syu --noconfirm \
+paru -Syu --noconfirm --needed \
     hyprland \
     xdg-desktop-portal-hyprland \
     sddm \
@@ -15,6 +15,9 @@ paru -Syu --noconfirm \
     hypridle \
     hyprlock \
     hyprpaper \
+    hyprsunset \
+    hyprshot \
+    hyprshade \
     swayosd-git \
     pipewire \
     wireplumber \
@@ -27,12 +30,22 @@ paru -Syu --noconfirm \
     gnome-themes-extra \
     xdg-desktop-portal-gtk \
     xdg-desktop-portal-hyprland \
-    rofi-wayland \
-    rofi-calc \
+    vicinae-bin \
     wiremix \
-    pamixer
+    pamixer \
+    gazelle-tui \
+    loupe \
+    proton-vpn-cli \
+    google-chrome \
+    brave-bin \
+    ttf-hack-nerd \
+    noto-fonts-emoji
+
+paru -S gnome-bluetooth --nocheck --noconfirm
+paru -S blueberry-wayland --noconfirm
 
 sudo systemctl enable --now swayosd-libinput-backend.service
+sudo systemctl enable sddm
 sudo systemctl --user enable --now pipewire wireplumber pipewire-pulse
 sudo systemctl --user enable --now hyprpolkitagent.service
 
