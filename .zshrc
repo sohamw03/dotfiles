@@ -81,6 +81,8 @@ alias dct='deactivate'
 alias ls='eza -a --icons --group-directories-first --no-quotes'
 alias la='eza -la --icons --group-directories-first --no-quotes --header'
 
+alias sc=streamcal
+
 # ---------------- Functions ---------------- #
 bt() { sudo brightnessctl set "$1"% }
 pr() { source ~/dotfiles/pr.sh "$@" }
@@ -92,6 +94,7 @@ export PATH=$PATH:/snap/bin
 export PATH=$PATH:$HOME/go/bin
 eval "$(mise env -s zsh go)"
 export PATH="$HOME/.bun/bin:$PATH"
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # ---------------- FZF ---------------- #
 # Find and source fzf keybindings

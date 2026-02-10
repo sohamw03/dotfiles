@@ -36,6 +36,11 @@
                "/home/soham/.local/share/applications",
                "/usr/share/applications"
             ]
+         },
+         "entrypoints": {
+            "com.google.Chrome": {
+               "enabled": false
+            }
          }
       },
       "system": {

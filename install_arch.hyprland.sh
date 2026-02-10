@@ -39,7 +39,11 @@ paru -Syu --noconfirm --needed \
     google-chrome \
     brave-bin \
     ttf-hack-nerd \
-    noto-fonts-emoji
+    ttf-ms-fonts \
+    noto-fonts \
+    noto-fonts-extra \
+    noto-fonts-emoji \
+    wlsunset
 
 paru -S gnome-bluetooth --nocheck --noconfirm
 paru -S blueberry-wayland --noconfirm

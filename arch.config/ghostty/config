@@ -79,3 +79,7 @@ keybind = alt+i>]=next_tab
 
 # Keymaps
 keybind = ctrl+[=text:\x1b
+
+# Scrolling
+keybind = ctrl+shift+]=scroll_page_fractional:0.1
+keybind = ctrl+shift+[=scroll_page_fractional:-0.1
