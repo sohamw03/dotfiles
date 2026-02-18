@@ -22,4 +22,16 @@ find "$src_base" -mindepth 1 -maxdepth 1 -type d -print0 | while IFS= read -r -d
   echo "Linked: $dst -> $src_dir"
 done
 
-ln -sfn "$src_base"/*.toml "$dst_base/" 2>/dev/null || true
+# Link .toml files, removing existing ones first
+for src_file in "$src_base"/*.toml; do
+  [ -e "$src_file" ] || continue
+  name="$(basename "$src_file")"
+  dst="$dst_base/$name"
+
+  if [ -e "$dst" ] || [ -L "$dst" ]; then
+    rm -f -- "$dst"
+  fi
+
+  ln -sfn -- "$src_file" "$dst"
+  echo "Linked: $dst -> $src_file"
+done
