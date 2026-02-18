@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=Sound Mixer
+Comment=Launch wiremix in a floating Ghostty window
+Exec=ghostty --class=com.ghostty.floating --font-size=14 -e wiremix
+Icon=com.mitchellh.ghostty
+Terminal=false
+Categories=System;TerminalEmulator;

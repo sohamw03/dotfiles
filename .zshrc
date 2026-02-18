@@ -123,7 +123,10 @@ zle -N fzf_edit_file
 bindkey '^f' fzf_edit_file
 
 # ---------------- OhMyPosh ---------------- #
-eval "$(oh-my-posh init zsh --config /home/soham/.oh-my-posh-themes/catppuccin_mocha.omp.json)"
+# eval "$(oh-my-posh init zsh --config /home/soham/.oh-my-posh-themes/catppuccin_mocha.omp.json)"
+
+# ---------------- starship ---------------- #
+eval "$(starship init zsh)"
 
 # ---------------- Tmux ---------------- #
 # if [[ -n $PS1 && -z $TMUX ]]; then

@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Night Light
+Comment=Toggle Night Light
+Exec=/home/soham/dotfiles/binomarchy/omarchy-toggle-nightlight
+Icon=com.mitchellh.ghostty

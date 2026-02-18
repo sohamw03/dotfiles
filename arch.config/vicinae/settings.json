@@ -43,6 +43,22 @@
             }
          }
       },
+      "power": {
+         "entrypoints": {
+            "lock": {
+               "enabled": true
+            },
+            "logout": {
+               "enabled": true
+            },
+            "power-off": {
+               "enabled": false
+            },
+            "sleep": {
+               "enabled": true
+            }
+         }
+      },
       "system": {
          "entrypoints": {
             "run": {

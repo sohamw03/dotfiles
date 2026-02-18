@@ -7,9 +7,6 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
-  "edit_predictions": {
-    "provider": "none"
-  },
   "colorize_brackets": true,
   "format_on_save": "off",
   "drag_and_drop_selection": {
@@ -29,20 +26,6 @@
     }
   },
   "agent": {
-    "favorite_models": [
-      {
-        "provider": "copilot_chat",
-        "model": "gpt-5.3-codex"
-      },
-      {
-        "provider": "copilot_chat",
-        "model": "claude-opus-4.5"
-      },
-      {
-        "provider": "copilot_chat",
-        "model": "gemini-3-pro-preview"
-      }
-    ],
     "notify_when_agent_waiting": "all_screens",
     "inline_assistant_model": {
       "provider": "copilot_chat",
@@ -50,7 +33,7 @@
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-opus-4.5"
+      "model": "oswe-vscode-prime"
     },
     "model_parameters": []
   },
@@ -121,12 +104,15 @@
   "session": {
     "trust_all_worktrees": true
   },
+  "features": {
+    "edit_prediction_provider": "none"
+  },
   "telemetry": {
     "diagnostics": true,
     "metrics": false
   },
   "vim_mode": true,
   "ui_font_size": 16.0,
-  "buffer_font_size": 16.0,
+  "buffer_font_size": 16.5,
   "theme": "VSCode Dark Modern"
 }

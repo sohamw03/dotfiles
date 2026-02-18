@@ -53,7 +53,7 @@ fd \
 htop \
 btop \
 zsh \
-zsh_autosuggestions \
+zsh-autosuggestions \
 yazi \
 vlc \
 vlc-plugins-all \

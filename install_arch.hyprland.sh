@@ -18,11 +18,13 @@ paru -Syu --noconfirm --needed \
     hyprsunset \
     hyprshot \
     hyprshade \
+    hyprshutdown \
     swayosd-git \
     pipewire \
     wireplumber \
     pipewire-pulse \
     pipewire-alsa \
+    pavucontrol \
     sddm-silent-theme \
     mako \
     cliphist \
@@ -43,7 +45,9 @@ paru -Syu --noconfirm --needed \
     noto-fonts \
     noto-fonts-extra \
     noto-fonts-emoji \
-    wlsunset
+    wlsunset \
+    qt5-wayland \
+    qt6-wayland \
 
 paru -S gnome-bluetooth --nocheck --noconfirm
 paru -S blueberry-wayland --noconfirm
@@ -52,6 +56,8 @@ sudo systemctl enable --now swayosd-libinput-backend.service
 sudo systemctl enable sddm
 sudo systemctl --user enable --now pipewire wireplumber pipewire-pulse
 sudo systemctl --user enable --now hyprpolkitagent.service
+sudo systemctl --user enable --now waybar.service
+sudo systemctl --user enable --now hyprpaper.service
 
 # Elephant
 # git clone https://github.com/abenz1267/elephant $HOME/elephant

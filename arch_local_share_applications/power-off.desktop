@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Shut Down System
+Comment=Power off system using hyprshutdown
+Exec=hyprshutdown -t 'Shutting down...' --post-cmd 'systemctl poweroff'
+Icon=com.mitchellh.ghostty

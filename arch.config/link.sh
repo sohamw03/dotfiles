@@ -21,3 +21,5 @@ find "$src_base" -mindepth 1 -maxdepth 1 -type d -print0 | while IFS= read -r -d
   ln -sfn -- "$src_dir" "$dst"
   echo "Linked: $dst -> $src_dir"
 done
+
+ln -sfn "$src_base"/*.toml "$dst_base/" 2>/dev/null || true

@@ -1,0 +1,92 @@
+# ------------------------------------------------------------------
+# SOHAM'S 1:1 OMP REPLICA
+# ------------------------------------------------------------------
+
+# 1. LAYOUT
+# Match: [OS] [Python] [User@Host] [Path] [Git] [Char]
+format = """
+$os\
+$python\
+$username\
+$hostname\
+$directory\
+$git_branch\
+$git_status\
+$character"""
+
+# No empty line at the top
+add_newline = false
+
+# 2. PALETTE (Catppuccin Mocha from your OMP)
+palette = "soham_match"
+
+[palettes.soham_match]
+os_color     = "#af3a03"  # orange
+python_color = "#458588"  # blue
+user_color   = "#a8a39f"  # gray
+path_color   = "#b57614"  # yellow
+git_color    = "#98971a"  # green
+prompt_color = "#98971a"  # green
+
+# 3. MODULES
+
+# [OS ICON]
+[os]
+disabled = false
+style = "os_color"
+format = " [$symbol]($style) "
+
+[os.symbols]
+Windows = "" # Matches your old icon
+Arch = "󰣇"
+
+# [PYTHON] - (backend 3.12.11)
+[python]
+style = "bold blue" # or "#458588"
+# 1. Disable "Smart" Project Detection
+# This stops it from showing up just because you are in a folder with .py files
+detect_extensions = []
+detect_files = []
+
+# 2. Format
+# Only shows when VIRTUAL_ENV is set (because file detection is off)
+format = '[(\($virtualenv ${version}\) )]($style)'
+version_format = "${raw}"
+
+# [USER] - soham
+[username]
+show_always = true
+style_user = "user_color"
+format = "[$user]($style)"
+
+# [HOST] - @Soham
+[hostname]
+ssh_only = false
+style = "user_color"
+format = "[@$hostname]($style) "
+
+# [DIRECTORY] - D:\..\backend
+[directory]
+style = "path_color"
+truncation_length = 3
+truncation_symbol = "...." # Matches your old folder separator
+home_symbol = "~"
+read_only = " 󰌾"
+# "format" ensures the path ends with a space
+format = "[$path]($style) "
+
+# [GIT BRANCH] -  main
+[git_branch]
+symbol = " " # Matches your old icon
+style = "git_color"
+format = "[$symbol$branch]($style) "
+
+# [GIT STATUS] - DISABLED to match OMP (old prompt didn't show !, ?, etc.)
+[git_status]
+disabled = true
+
+# [PROMPT CHARACTER] - 
+[character]
+success_symbol = "[](prompt_color)"
+error_symbol = "[](bold red)"
+vimcmd_symbol = "[❮](prompt_color)"
