@@ -5,7 +5,6 @@ paru -Syu --noconfirm --needed \
     hyprland \
     xdg-desktop-portal-hyprland \
     sddm \
-    waybar \
     kitty \
     ghostty \
     polkit \
@@ -48,6 +47,12 @@ paru -Syu --noconfirm --needed \
     wlsunset \
     qt5-wayland \
     qt6-wayland \
+    noctalia-shell \
+    brightnessctl \
+    imagemagick \
+    cava \
+
+# waybar
 
 paru -S gnome-bluetooth --nocheck --noconfirm
 paru -S blueberry-wayland --noconfirm

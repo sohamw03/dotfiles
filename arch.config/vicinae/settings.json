@@ -13,9 +13,14 @@
    "close_on_focus_loss": false,
    "pop_to_root_on_close": true,
    "favicon_service": "twenty",
+   "font": {
+      "normal": {
+         "family": "Segoe UI"
+      }
+   },
    "theme": {
       "dark": {
-         "name": "gruvbox-dark"
+         "name": "noctalia"
       }
    },
    "launcher_window": {

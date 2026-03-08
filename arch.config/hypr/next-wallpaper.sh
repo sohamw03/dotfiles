@@ -36,11 +36,11 @@ RANDOM_WP="${CAND[RANDOM % ${#CAND[@]}]}"
 #   ,"/path/to/img",
 # older/newer versions may accept unquoted path inside commas: ,/path/to/img,
 # try quoted form first, on failure fallback to unquoted and print hyprctl output for diagnosis.
-if hyprctl_output=$(hyprctl hyprpaper wallpaper ",\"$RANDOM_WP\"," 2>&1); then
+if hyprctl_output=$(hyprctl hyprpaper wallpaper "eDP-1,$RANDOM_WP," 2>&1); then
     echo "hyprctl success"
 else
     echo "hyprctl (quoted) failed: $hyprctl_output" >&2
-    if hyprctl_output2=$(hyprctl hyprpaper wallpaper ",${RANDOM_WP}," 2>&1); then
+    if hyprctl_output2=$(hyprctl hyprpaper wallpaper "eDP-1,${RANDOM_WP}," 2>&1); then
         echo "hyprctl success (fallback)"
     else
         echo "hyprctl (fallback) failed: $hyprctl_output2" >&2

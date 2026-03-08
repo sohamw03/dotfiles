@@ -29,18 +29,40 @@
     }
   },
   "agent": {
+    "tool_permissions": {
+      "tools": {
+        "terminal": {
+          "always_allow": [
+            {
+              "pattern": "^gh\\b"
+            }
+          ]
+        },
+        "fetch": {
+          "default_mode": "allow"
+        }
+      }
+    },
     "favorite_models": [
       {
         "provider": "copilot_chat",
-        "model": "gpt-5.3-codex"
+        "model": "gpt-5.3-codex",
+        "enable_thinking": false
       },
       {
         "provider": "copilot_chat",
-        "model": "claude-opus-4.5"
+        "model": "claude-opus-4.5",
+        "enable_thinking": false
       },
       {
         "provider": "copilot_chat",
-        "model": "gemini-3-pro-preview"
+        "model": "gemini-3.1-pro-preview",
+        "enable_thinking": false
+      },
+      {
+        "provider": "copilot_chat",
+        "model": "gpt-5.2-codex",
+        "enable_thinking": false
       }
     ],
     "notify_when_agent_waiting": "all_screens",
@@ -50,7 +72,7 @@
     },
     "default_model": {
       "provider": "copilot_chat",
-      "model": "claude-opus-4.5"
+      "model": "gpt-5.2-codex"
     },
     "model_parameters": []
   },

@@ -64,7 +64,8 @@ zed \
 spotify-launcher \
 freedownloadmanager \
 localsend \
-man-db
+man-db \
+bat
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."
