@@ -44,7 +44,6 @@ wget \
 git-delta \
 eza \
 mise \
-oh-my-posh-bin \
 neovim \
 less \
 bun \
@@ -65,7 +64,8 @@ spotify-launcher \
 freedownloadmanager \
 localsend \
 man-db \
-bat
+bat \
+starship
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."

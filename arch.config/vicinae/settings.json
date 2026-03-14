@@ -45,11 +45,17 @@
          "entrypoints": {
             "com.google.Chrome": {
                "enabled": false
+            },
+            "power-off": {
+               "alias": "off"
             }
          }
       },
       "power": {
          "entrypoints": {
+            "hibernate": {
+               "enabled": false
+            },
             "lock": {
                "enabled": true
             },
@@ -60,7 +66,10 @@
                "enabled": false
             },
             "sleep": {
-               "enabled": true
+               "enabled": false
+            },
+            "suspend": {
+               "enabled": false
             }
          }
       },
