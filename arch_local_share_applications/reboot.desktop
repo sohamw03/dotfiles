@@ -1,0 +1,6 @@
+[Desktop Entry]
+Type=Application
+Name=Reboot System
+Comment=Restart system using hyprshutdown
+Exec=hyprshutdown -t 'Shutting down...' --post-cmd 'reboot'
+Icon=com.mitchellh.ghostty

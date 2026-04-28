@@ -65,7 +65,10 @@ freedownloadmanager \
 localsend \
 man-db \
 bat \
-starship
+starship \
+gnome-keyring \
+libsecret \
+seahorse \
 
 # --- Locale Generation ---
 echo "Generating en_US.UTF-8 locale..."

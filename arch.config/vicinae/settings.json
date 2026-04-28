@@ -10,10 +10,11 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
-   "close_on_focus_loss": false,
-   "pop_to_root_on_close": true,
+   "close_on_focus_loss": true,
+   "pop_to_root_on_close": false,
    "favicon_service": "twenty",
    "font": {
+      "rendering": "qt",
       "normal": {
          "family": "Segoe UI"
       }
@@ -22,6 +23,9 @@
       "dark": {
          "name": "noctalia"
       }
+   },
+   "telemetry": {
+      "system_info": false
    },
    "launcher_window": {
       "opacity": 1
@@ -48,24 +52,47 @@
             },
             "power-off": {
                "alias": "off"
+            },
+            "reboot": {
+               "alias": "re"
+            },
+            "wiremix": {
+               "enabled": false
             }
          }
       },
       "power": {
+         "enabled": true,
          "entrypoints": {
             "hibernate": {
                "enabled": false
             },
             "lock": {
-               "enabled": true
+               "enabled": false,
+               "preferences": {
+                  "customProgram": "hyprshutdown"
+               }
             },
             "logout": {
-               "enabled": true
+               "enabled": false,
+               "preferences": {
+                  "confirm": false
+               }
             },
             "power-off": {
                "enabled": false
             },
+            "reboot": {
+               "enabled": false
+            },
             "sleep": {
+               "enabled": true,
+               "preferences": {
+                  "confirm": true,
+                  "customProgram": "systemctl suspend"
+               }
+            },
+            "soft-reboot": {
                "enabled": false
             },
             "suspend": {

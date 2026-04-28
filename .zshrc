@@ -82,6 +82,10 @@ alias ls='eza -a --icons --group-directories-first --no-quotes'
 alias la='eza -la --icons --group-directories-first --no-quotes --header'
 
 alias sc=streamcal
+alias n=nvim
+
+# ---------------- Zed ---------------- #
+alias c="WGPU_BACKEND=vulkan zeditor"
 
 # ---------------- Functions ---------------- #
 bt() { sudo brightnessctl set "$1"% }

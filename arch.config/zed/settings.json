@@ -7,8 +7,10 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "buffer_font_weight": 400.0,
+  "buffer_line_height": "standard",
   "edit_predictions": {
-    "provider": "none"
+    "provider": "zed"
   },
   "colorize_brackets": true,
   "format_on_save": "off",
@@ -39,7 +41,7 @@
           ]
         },
         "fetch": {
-          "default_mode": "allow"
+          "default": "allow"
         }
       }
     },
@@ -89,8 +91,11 @@
       ]
     }
   ],
-  "buffer_font_family": "Hack Nerd Font",
+  "buffer_font_family": "Symbols Nerd Font",
   "agent_servers": {
+    "codex-acp": {
+      "type": "registry"
+    },
     "your_agent": {
       "type": "custom",
       "command": "path_to_executable",
@@ -150,5 +155,5 @@
   "vim_mode": true,
   "ui_font_size": 16.0,
   "buffer_font_size": 16.0,
-  "theme": "VSCode Dark Modern"
+  "theme": "VSCode Dark Polished"
 }

@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=btop++
+GenericName=System Monitor
+Comment=Resource monitor that shows usage and stats for processor, memory, disks, network and processes
+Icon=btop
+Exec=ghostty --class=com.ghostty.btop --font-size=14 -e btop
+Terminal=false
+Categories=System;TerminalEmulator;

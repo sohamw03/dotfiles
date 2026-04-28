@@ -52,6 +52,7 @@ paru -Syu --noconfirm --needed \
     imagemagick \
     cava \
 
+# proton-vpn-gtk-app \
 # waybar
 
 paru -S gnome-bluetooth --nocheck --noconfirm
@@ -61,8 +62,8 @@ sudo systemctl enable --now swayosd-libinput-backend.service
 sudo systemctl enable sddm
 sudo systemctl --user enable --now pipewire wireplumber pipewire-pulse
 sudo systemctl --user enable --now hyprpolkitagent.service
-sudo systemctl --user enable --now waybar.service
-sudo systemctl --user enable --now hyprpaper.service
+# sudo systemctl --user enable --now waybar.service
+# sudo systemctl --user enable --now hyprpaper.service
 
 # Elephant
 # git clone https://github.com/abenz1267/elephant $HOME/elephant
@@ -76,10 +77,10 @@ sudo systemctl --user enable --now hyprpaper.service
 # sudo mv $(which elephant) /usr/local/bin/
 
 # Rofi
-git clone https://github.com/lr-tech/rofi-themes-collection.git $HOME/CODE/rofi-themes-collection
-cd $HOME/CODE/rofi-themes-collection
-mkdir -p $HOME/.local/share/rofi/themes/
-cp -r themes/* $HOME/.local/share/rofi/themes/
+# git clone https://github.com/lr-tech/rofi-themes-collection.git $HOME/CODE/rofi-themes-collection
+# cd $HOME/CODE/rofi-themes-collection
+# mkdir -p $HOME/.local/share/rofi/themes/
+# cp -r themes/* $HOME/.local/share/rofi/themes/
 
 # SDDM Silent theme
 sudo tee -a /etc/sddm.conf <<'EOF'
