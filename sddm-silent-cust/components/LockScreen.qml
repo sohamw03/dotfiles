@@ -18,10 +18,18 @@ Item {
             font.weight: Config.clockFontWeight
             font.family: Config.clockFontFamily
             color: Config.clockColor
+            style: Text.Raised
+            styleColor: "#26000000"
             Layout.alignment: Config.clockAlign === "left" ? Qt.AlignLeft : (Config.clockAlign === "right" ? Qt.AlignRight : Qt.AlignHCenter)
 
             function updateTime() {
-                text = new Date().toLocaleString(Qt.locale(Config.dateLocale), Config.clockFormat);
+                var now = new Date();
+                var hours = now.getHours();
+                var minutes = now.getMinutes();
+                var hour12 = hours % 12;
+                if (hour12 === 0)
+                    hour12 = 12;
+                text = hour12 + ":" + (minutes < 10 ? "0" : "") + minutes;
             }
         }
 
@@ -33,6 +41,8 @@ Item {
             font.family: Config.dateFontFamily
             font.weight: Config.dateFontWeight
             color: Config.dateColor
+            style: Text.Raised
+            styleColor: "#22000000"
 
             function updateDate() {
                 text = new Date().toLocaleString(Qt.locale(Config.dateLocale), Config.dateFormat);
@@ -105,6 +115,8 @@ Item {
             font.family: Config.lockMessageFontFamily
             font.weight: Config.lockMessageFontWeight
             color: Config.lockMessageColor
+            style: Text.Raised
+            styleColor: "#22000000"
             text: Config.lockMessageText
         }
 

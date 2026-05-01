@@ -125,6 +125,7 @@ Item {
                 anchors.horizontalCenter = parent.horizontalCenter;
                 if (Config.loginAreaMargin === -1) {
                     anchors.verticalCenter = parent.verticalCenter;
+                    anchors.verticalCenterOffset = -45 * Config.generalScale;
                 } else {
                     anchors.top = parent.top;
                     anchors.topMargin = Config.loginAreaMargin;
@@ -163,6 +164,8 @@ Item {
                 color: Config.warningMessageErrorColor
                 font.pixelSize: Math.max(8, Config.passwordInputFontSize * Config.generalScale)
                 font.family: Config.passwordInputFontFamily
+                style: Text.Raised
+                styleColor: "#22000000"
             }
 
             Input {
@@ -173,7 +176,7 @@ Item {
                 }
                 width: parent.width
                 icon: Config.getIcon("user-default")
-                placeholder: (textConstants && textConstants.userName) ? textConstants.userName : "Password"
+                placeholder: (textConstants && textConstants.userName) ? textConstants.userName : "Username"
                 isPassword: false
                 splitBorderRadius: false
                 enabled: loginScreen.state !== "authenticating"
@@ -268,6 +271,8 @@ Item {
                 color: Config.usernameColor
                 text: loginScreen.userRealName || loginScreen.userName || ""
                 visible: loginScreen.foundUsers
+                style: Text.Raised
+                styleColor: "#24000000"
 
                 Component.onCompleted: {
                     anchors.top = parent.top;
@@ -379,6 +384,8 @@ Item {
                 color: Config.warningMessageNormalColor
                 visible: text !== "" && loginScreen.state !== "authenticating" && (capslockWarning ? loginScreen.userNeedsPassword : true)
                 opacity: visible ? 1.0 : 0.0
+                style: Text.Raised
+                styleColor: "#22000000"
                 anchors.top: loginArea.bottom
                 anchors.topMargin: visible ? Config.warningMessageMarginTop : 0
 

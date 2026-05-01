@@ -30,6 +30,8 @@ Item {
     property int borderSize: 0
     property color borderColor: isActive ? iconButton.activeContentColor : iconButton.contentColor
     property int preferredWidth: -1
+    property real rippleX: width / 2
+    property real rippleY: height / 2
 
     width: preferredWidth !== -1 ? (preferredWidth * Config.generalScale) : buttonContentRow.width // childrenRect doesn't update for some reason
     height: iconSize * 2 * Config.generalScale
@@ -49,6 +51,54 @@ Item {
             NumberAnimation {
                 duration: 250
             }
+        }
+    }
+
+    Item {
+        id: rippleLayer
+        anchors.fill: parent
+        clip: true
+
+        Rectangle {
+            anchors.fill: parent
+            color: "transparent"
+            topLeftRadius: iconButton.borderRadiusLeft * Config.generalScale
+            topRightRadius: iconButton.borderRadiusRight * Config.generalScale
+            bottomLeftRadius: iconButton.borderRadiusLeft * Config.generalScale
+            bottomRightRadius: iconButton.borderRadiusRight * Config.generalScale
+
+            Rectangle {
+                id: ripple
+                property real diameter: Math.max(iconButton.width, iconButton.height) * 2.2
+                width: 0
+                height: width
+                radius: width / 2
+                x: iconButton.rippleX - width / 2
+                y: iconButton.rippleY - height / 2
+                color: iconButton.isActive ? iconButton.activeContentColor : iconButton.contentColor
+                opacity: 0
+                antialiasing: true
+            }
+        }
+    }
+
+    ParallelAnimation {
+        id: rippleAnimation
+        NumberAnimation {
+            target: ripple
+            property: "width"
+            from: 0
+            to: ripple.diameter
+            duration: 420
+            easing.type: Easing.OutCubic
+        }
+        NumberAnimation {
+            target: ripple
+            property: "opacity"
+            from: 0.22
+            to: 0
+            duration: 520
+            easing.type: Easing.OutQuad
         }
     }
 
@@ -145,6 +195,14 @@ Item {
         id: mouseArea
         anchors.fill: parent
         hoverEnabled: parent.enabled
+        onPressed: function (mouse) {
+            if (!iconButton.enabled)
+                return;
+
+            iconButton.rippleX = mouse.x;
+            iconButton.rippleY = mouse.y;
+            rippleAnimation.restart();
+        }
         onClicked: iconButton.clicked()
         cursorShape: Qt.PointingHandCursor
 

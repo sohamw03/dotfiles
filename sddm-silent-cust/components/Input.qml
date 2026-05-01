@@ -28,9 +28,11 @@ Item {
         passwordCharacter: Config.passwordInputMaskedCharacter
         activeFocusOnTab: true
         selectByMouse: true
+        horizontalAlignment: TextInput.AlignHCenter
         verticalAlignment: TextField.AlignVCenter
         font.family: Config.passwordInputFontFamily
         font.pixelSize: Math.max(8, Config.passwordInputFontSize * Config.generalScale)
+        font.weight: input.isPassword ? Font.Bold : Font.Normal
         background: Rectangle {
             anchors.fill: parent
             color: Config.passwordInputBackgroundColor
@@ -40,8 +42,8 @@ Item {
             topRightRadius: input.splitBorderRadius ? Config.passwordInputBorderRadiusRight * Config.generalScale : Config.passwordInputBorderRadiusLeft * Config.generalScale
             bottomRightRadius: input.splitBorderRadius ? Config.passwordInputBorderRadiusRight * Config.generalScale : Config.passwordInputBorderRadiusLeft * Config.generalScale
         }
-        leftPadding: placeholderLabel.x
-        rightPadding: 10
+        leftPadding: Config.passwordInputDisplayIcon ? height : 12
+        rightPadding: Config.passwordInputDisplayIcon ? height : 12
         onAccepted: input.accepted()
 
         Rectangle {
@@ -55,10 +57,8 @@ Item {
             bottomRightRadius: input.splitBorderRadius ? Config.passwordInputBorderRadiusRight * Config.generalScale : Config.passwordInputBorderRadiusLeft * Config.generalScale
         }
 
-        Row {
+        Item {
             anchors.fill: parent
-            spacing: 0
-            leftPadding: Config.passwordInputDisplayIcon ? 2 : 10
 
             Rectangle {
                 id: iconContainer
@@ -66,6 +66,7 @@ Item {
                 visible: Config.passwordInputDisplayIcon
                 height: parent.height
                 width: height
+                anchors.left: parent.left
 
                 Image {
                     id: icon
@@ -95,7 +96,7 @@ Item {
             Text {
                 id: placeholderLabel
                 anchors {
-                    verticalCenter: parent.verticalCenter
+                    centerIn: parent
                 }
                 padding: 0
                 visible: textField.text.length === 0 && (!textField.preeditText || textField.preeditText.length === 0)
@@ -103,7 +104,7 @@ Item {
                 color: textField.color
                 font.pixelSize: Math.max(8, textField.font.pixelSize || 12)
                 font.family: textField.font.family || "sans-serif"
-                horizontalAlignment: Text.AlignLeft
+                horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: textField.verticalAlignment
                 font.italic: true
             }
