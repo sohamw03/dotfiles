@@ -13,15 +13,17 @@
    "close_on_focus_loss": true,
    "pop_to_root_on_close": false,
    "favicon_service": "twenty",
+   "keybinding": "emacs",
    "font": {
       "rendering": "qt",
       "normal": {
-         "family": "Segoe UI"
+         "family": "Material-Design-Iconic-Font",
+         "size": 12
       }
    },
    "theme": {
       "dark": {
-         "name": "noctalia"
+         "name": "vicinae-dark"
       }
    },
    "telemetry": {
@@ -38,9 +40,12 @@
       "shortcuts:3183da21-1145-4683-8113-a199e2398666"
    ],
    "providers": {
+      "@rithvikvibhu/store.vicinae.arch-packages": {
+         "enabled": true
+      },
       "applications": {
          "preferences": {
-            "defaultAction": "launch",
+            "defaultAction": "focus",
             "paths": [
                "/home/soham/.local/share/applications",
                "/usr/share/applications"
@@ -60,6 +65,9 @@
                "enabled": false
             }
          }
+      },
+      "browser-extension": {
+         "enabled": false
       },
       "power": {
          "enabled": true,

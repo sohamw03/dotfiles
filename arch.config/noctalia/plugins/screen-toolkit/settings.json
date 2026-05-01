@@ -1,38 +1,16 @@
 {
-  "colorHistory": [
-    "#EAB27E",
-    "#F7E4A7"
-  ],
-  "paletteColors": [
-    "#1D120A",
-    "#23170F",
-    "#362B23",
-    "#463C35",
-    "#68605A",
-    "#857F7A",
-    "#AAA5A2"
-  ],
+  "colorHistory": [],
+  "paletteColors": [],
   "installedLangs": [
     "eng"
   ],
-  "transAvailable": true,
+  "transAvailable": false,
   "selectedOcrLang": "eng",
   "screenshotPath": "",
   "videoPath": "",
   "filenameFormat": "",
-  "detectedRecorder": "wl-screenrec",
+  "detectedRecorder": "",
   "detectedCompositor": "hyprland",
   "stateIsRunning": false,
-  "stateActiveTool": "",
-  "stateMirrorVisible": false,
-  "resultHex": "#EAB27E",
-  "resultRgb": "rgb(234, 178, 126)",
-  "resultHsv": "hsv(29, 46%, 92%)",
-  "resultHsl": "hsl(29, 72%, 71%)",
-  "colorCapturePath": "/tmp/screen-toolkit-colorpicker.png",
-  "ocrResult": "O Shashwat Sachdev",
-  "ocrCapturePath": "/tmp/screen-toolkit-ocr.png",
-  "translateResult": "",
-  "qrResult": "https://goople.com",
-  "qrCapturePath": "/tmp/screen-toolkit-qr.png"
+  "stateActiveTool": ""
 }

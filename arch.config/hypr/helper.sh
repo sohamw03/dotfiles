@@ -4,7 +4,7 @@ set -euo pipefail
 show_launch_notification() {
     local app_name="$1"
 
-    notify-send --urgency=critical --expire-time=0 --print-id "Opening ${app_name}..." 2>/dev/null || true
+    notify-send --app-name=ahk-rs --urgency=critical --expire-time=0 --print-id "Opening ${app_name}..." 2>/dev/null || true
 }
 
 dismiss_notification() {
@@ -63,11 +63,14 @@ case "${1:-}" in
     brave)
         focus_or_launch_single "brave-browser" "class:^(brave-browser)$" "brave" "Brave" brave
         ;;
+    google-chrome-stable)
+        focus_or_launch_single "google-chrome" "class:^(google-chrome)$" "google-chrome-stable" "Google Chrome" google-chrome-stable
+        ;;
     ghostty)
         focus_or_launch_single "com.mitchellh.ghostty" "class:^(com.mitchellh.ghostty)$" "ghostty" "Ghostty" ghostty --working-directory=home
         ;;
     *)
-        echo "Usage: $0 {brave|ghostty}" >&2
+        echo "Usage: $0 {brave|google-chrome-stable|ghostty}" >&2
         exit 1
         ;;
 esac

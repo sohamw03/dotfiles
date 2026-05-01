@@ -46,7 +46,7 @@ background-opacity = 1
 keybind = "ctrl+enter=ignore"
 font-family = JetBrainsMono Nerd Font
 font-style = Regular
-font-size = 14
+font-size = 16
 font-thicken = false
 font-feature = -calt
 confirm-close-surface = false
