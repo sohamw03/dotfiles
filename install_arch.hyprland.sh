@@ -51,6 +51,10 @@ paru -Syu --noconfirm --needed \
     brightnessctl \
     imagemagick \
     cava \
+    ttf-material-design-iconic-font \
+    plymouth \
+    visual-studio-code-bin \
+    ttf-roboto \
 
 # proton-vpn-gtk-app \
 # waybar
