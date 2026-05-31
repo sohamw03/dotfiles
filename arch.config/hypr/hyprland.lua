@@ -37,9 +37,24 @@ local current_focused_window = nil
 local previous_focused_window = nil
 
 local single_launch_apps = {
-	brave = { class = "brave-browser", name = "Brave", command = "brave" },
-	["google-chrome-stable"] = { class = "google-chrome", name = "Google Chrome", command = "google-chrome-stable" },
-	ghostty = { class = "com.mitchellh.ghostty", name = "Ghostty", command = "ghostty --working-directory=home" },
+	brave = {
+		class = "brave-browser",
+		name = "Brave",
+		command = "brave",
+		notification_id_file = "/tmp/hypr-single-launch-brave.notification",
+	},
+	["google-chrome-stable"] = {
+		class = "google-chrome",
+		name = "Google Chrome",
+		command = "google-chrome-stable",
+		notification_id_file = "/tmp/hypr-single-launch-google-chrome-stable.notification",
+	},
+	ghostty = {
+		class = "com.mitchellh.ghostty",
+		name = "Ghostty",
+		command = "ghostty --working-directory=home",
+		notification_id_file = "/tmp/hypr-single-launch-ghostty.notification",
+	},
 }
 local pending_single_launches = {}
 
@@ -49,6 +64,14 @@ local function find_window_by_class(class)
 			return window
 		end
 	end
+end
+
+local function dismiss_launch_notification(notification_id_file)
+	hl.exec_cmd(
+		[[sh -c 'id_file="]]
+			.. notification_id_file
+			.. [["; [ -s "$id_file" ] || exit 0; id="$(cat "$id_file")"; rm -f "$id_file"; command -v gdbus >/dev/null 2>&1 || exit 0; gdbus call --session --dest org.freedesktop.Notifications --object-path /org/freedesktop/Notifications --method org.freedesktop.Notifications.CloseNotification "$id" >/dev/null 2>&1 || true']]
+	)
 end
 
 hl.on("window.active", function(window)
@@ -106,8 +129,8 @@ hl.on("window.open", function(window)
 		return
 	end
 
-	pending.notification:dismiss()
 	pending.timer:set_enabled(false)
+	dismiss_launch_notification(pending.notification_id_file)
 	pending_single_launches[window.class] = nil
 	hl.dispatch(hl.dsp.focus({ window = window }))
 end)
@@ -129,17 +152,25 @@ local function focus_or_launch_single(app)
 	local timer = hl.timer(function()
 		local pending = pending_single_launches[spec.class]
 		if pending ~= nil then
-			pending.notification:dismiss()
+			dismiss_launch_notification(pending.notification_id_file)
 			pending_single_launches[spec.class] = nil
 		end
 	end, { timeout = 20000, type = "oneshot" })
 
 	pending_single_launches[spec.class] = {
-		notification = hl.notification.create({ text = "Opening " .. spec.name .. "...", timeout = 0 }),
+		notification_id_file = spec.notification_id_file,
 		timer = timer,
 	}
 
-	hl.exec_cmd(spec.command)
+	hl.exec_cmd(
+		[[sh -c 'notify-send --app-name=ahk-rs --urgency=critical --expire-time=0 --print-id "Opening ]]
+			.. spec.name
+			.. [[..." > ]]
+			.. spec.notification_id_file
+			.. [[ 2>/dev/null || true; ]]
+			.. spec.command
+			.. [[']]
+	)
 end
 
 -------------------
