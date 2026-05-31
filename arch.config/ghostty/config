@@ -46,15 +46,16 @@ background-opacity = 1
 keybind = "ctrl+enter=ignore"
 font-family = JetBrainsMono Nerd Font
 font-style = Regular
-font-size = 16
+font-size = 14
 font-thicken = false
 font-feature = -calt
+adjust-cell-height = -10%
 confirm-close-surface = false
 
 # Theme
 theme = /home/soham/.config/ghostty/themes/Elemental
 
-# Prefix / Leader configuration
+# Prefix / ader configuration
 # Note: Ghostty prefix sequences wait indefinitely for the next key
 
 # New Splits (Horizontal and Vertical)

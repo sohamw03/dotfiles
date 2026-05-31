@@ -15,8 +15,8 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-	output = "eDP-1",
-	mode = "1920x1080@144",
+	output = "HDMI-A-1",
+	mode = "1920x1080@75",
 	position = "0x0",
 	scale = "1",
 })
@@ -27,11 +27,120 @@ hl.monitor({
 
 -- Set programs that you use
 local terminal = "ghostty"
-local fileManager = "dolphin"
+local fileManager = "nautilus"
 local menu = "vicinae toggle"
 local qs_ipc = "qs -c noctalia-shell ipc call"
 local cursorTheme = "Remus-White"
 local cursorSize = "24"
+
+local current_focused_window = nil
+local previous_focused_window = nil
+
+local single_launch_apps = {
+	brave = { class = "brave-browser", name = "Brave", command = "brave" },
+	["google-chrome-stable"] = { class = "google-chrome", name = "Google Chrome", command = "google-chrome-stable" },
+	ghostty = { class = "com.mitchellh.ghostty", name = "Ghostty", command = "ghostty --working-directory=home" },
+}
+local pending_single_launches = {}
+
+local function find_window_by_class(class)
+	for _, window in ipairs(hl.get_windows()) do
+		if window.class == class then
+			return window
+		end
+	end
+end
+
+hl.on("window.active", function(window)
+	if window == nil or (current_focused_window ~= nil and window.address == current_focused_window.address) then
+		return
+	end
+
+	previous_focused_window = current_focused_window
+	current_focused_window = window
+end)
+
+local function clear_focus_history_window(window)
+	if window == nil then
+		return
+	end
+
+	if current_focused_window ~= nil and window.address == current_focused_window.address then
+		current_focused_window = nil
+	end
+	if previous_focused_window ~= nil and window.address == previous_focused_window.address then
+		previous_focused_window = nil
+	end
+end
+
+hl.on("window.close", clear_focus_history_window)
+hl.on("window.destroy", clear_focus_history_window)
+
+local function focus_previous_window()
+	local active = hl.get_active_window()
+	local previous = previous_focused_window
+
+	if previous ~= nil and (active == nil or previous.address ~= active.address) then
+		local live_previous = nil
+		for _, window in ipairs(hl.get_windows()) do
+			if window.address == previous.address then
+				live_previous = window
+				break
+			end
+		end
+
+		if live_previous ~= nil then
+			previous_focused_window = active
+			current_focused_window = live_previous
+			hl.dispatch(hl.dsp.focus({ window = live_previous }))
+			return
+		end
+	end
+
+	hl.dispatch(hl.dsp.focus({ urgent_or_last = true }))
+end
+
+hl.on("window.open", function(window)
+	local pending = pending_single_launches[window.class]
+	if pending == nil then
+		return
+	end
+
+	pending.notification:dismiss()
+	pending.timer:set_enabled(false)
+	pending_single_launches[window.class] = nil
+	hl.dispatch(hl.dsp.focus({ window = window }))
+end)
+
+local function focus_or_launch_single(app)
+	local spec = single_launch_apps[app]
+	assert(spec, "unknown app: " .. tostring(app))
+
+	local window = find_window_by_class(spec.class)
+	if window ~= nil then
+		hl.dispatch(hl.dsp.focus({ window = window }))
+		return
+	end
+
+	if pending_single_launches[spec.class] ~= nil then
+		return
+	end
+
+	local timer = hl.timer(function()
+		local pending = pending_single_launches[spec.class]
+		if pending ~= nil then
+			pending.notification:dismiss()
+			pending_single_launches[spec.class] = nil
+		end
+	end, { timeout = 20000, type = "oneshot" })
+
+	pending_single_launches[spec.class] = {
+		notification = hl.notification.create({ text = "Opening " .. spec.name .. "...", timeout = 0 }),
+		timer = timer,
+	}
+
+	hl.exec_cmd(spec.command)
+end
 
 -------------------
 ---- AUTOSTART ----
@@ -187,9 +296,11 @@ hl.animation({ leaf = "layersIn", enabled = true, speed = 4, bezier = "easeOutQu
 hl.animation({ leaf = "layersOut", enabled = true, speed = 1.5, bezier = "linear", style = "fade" })
 hl.animation({ leaf = "fadeLayersIn", enabled = true, speed = 1.79, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeLayersOut", enabled = true, speed = 1.39, bezier = "almostLinear" })
-hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
-hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+-- Keep workspace switching instant.
+-- hl.animation({ leaf = "workspaces", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+-- hl.animation({ leaf = "workspacesIn", enabled = true, speed = 1.21, bezier = "almostLinear", style = "fade" })
+-- hl.animation({ leaf = "workspacesOut", enabled = true, speed = 1.94, bezier = "almostLinear", style = "fade" })
+hl.animation({ leaf = "workspaces", enabled = false, speed = 0, bezier = "default" })
 hl.animation({ leaf = "zoomFactor", enabled = true, speed = 7, bezier = "quick" })
 
 -- Ref https://wiki.hypr.land/Configuring/Basics/Workspace-Rules/
@@ -305,7 +416,6 @@ hl.window_rule({ border_size = 0, match = { workspace = "w[v1]" } })
 -- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
 hl.config({
 	dwindle = {
-		pseudotile = true, -- Master switch for pseudotiling
 		preserve_split = true, -- You probably want this
 	},
 })
@@ -424,15 +534,21 @@ hl.gesture({
 local mainMod = "ALT"
 
 -- Example binds, see https://wiki.hypr.land/Configuring/Basics/Binds/ for more
--- hl.bind("ALT_R + E", hl.dsp.focus({ workspace = "previous" }), { separate = true })
-hl.bind("ALT_R + E", hl.dsp.focus({ urgent_or_last = true }), { separate = true })
-hl.bind("ALT_L + Tab", hl.dsp.focus({ urgent_or_last = true }), { separate = true })
-hl.bind("ALT_R + T", hl.dsp.exec_cmd("~/.config/hypr/helper.sh ghostty"), { separate = true })
-hl.bind("ALT_R + C", hl.dsp.exec_cmd("~/.config/hypr/helper.sh google-chrome-stable"), { separate = true })
-hl.bind("ALT_R + B", hl.dsp.exec_cmd("~/.config/hypr/helper.sh brave"), { separate = true })
+-- hl.bind("ALT + E", hl.dsp.focus({ workspace = "previous" }), { separate = true })
+hl.bind("ALT + E", focus_previous_window, { separate = true })
+hl.bind("ALT + Tab", focus_previous_window, { separate = true })
+hl.bind("ALT + T", function()
+	focus_or_launch_single("ghostty")
+end, { separate = true })
+hl.bind("ALT + C", function()
+	focus_or_launch_single("google-chrome-stable")
+end, { separate = true })
+hl.bind("ALT + B", function()
+	focus_or_launch_single("brave")
+end, { separate = true })
 
-hl.bind("SUPER + V", hl.dsp.exec_cmd("vicinae vicinae://extensions/vicinae/clipboard/history"))
-hl.bind("SUPER + period", hl.dsp.exec_cmd("vicinae vicinae://extensions/vicinae/core/search-emojis"))
+hl.bind("SUPER + V", hl.dsp.exec_cmd("vicinae vicinae://launch/clipboard/history"))
+hl.bind("SUPER + period", hl.dsp.exec_cmd("vicinae vicinae://launch/core/search-emojis"))
 
 -- Only display the OSD on the currently focused monitor
 -- local osdclient = "swayosd-client --monitor \"$(hyprctl monitors -j | jq -r '.[] | select(.focused == true).name')\""
@@ -442,12 +558,12 @@ hl.bind("SUPER + period", hl.dsp.exec_cmd("vicinae vicinae://extensions/vicinae/
 hl.bind(
 	"XF86AudioRaiseVolume",
 	hl.dsp.exec_cmd(qs_ipc .. " volume increase"),
-	{ description = "Volume up", ignore_mods = true }
+	{ description = "Volume up", ignore_mods = true, repeating = true }
 )
 hl.bind(
 	"XF86AudioLowerVolume",
 	hl.dsp.exec_cmd(qs_ipc .. " volume decrease"),
-	{ description = "Volume down", ignore_mods = true }
+	{ description = "Volume down", ignore_mods = true, repeating = true }
 )
 hl.bind("XF86AudioMute", hl.dsp.exec_cmd(qs_ipc .. " volume muteOutput"), { description = "Mute", ignore_mods = true })
 hl.bind(
@@ -458,15 +574,15 @@ hl.bind(
 hl.bind(
 	"XF86MonBrightnessUp",
 	hl.dsp.exec_cmd(qs_ipc .. " brightness increase"),
-	{ description = "Brightness up", ignore_mods = true }
+	{ description = "Brightness up", ignore_mods = true, repeating = true }
 )
 hl.bind(
 	"XF86MonBrightnessDown",
 	hl.dsp.exec_cmd(qs_ipc .. " brightness decrease"),
-	{ description = "Brightness down", ignore_mods = true }
+	{ description = "Brightness down", ignore_mods = true, repeating = true }
 )
-hl.bind("ALT_R + Up", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { separate = true })
-hl.bind("ALT_R + Down", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { separate = true })
+hl.bind("ALT + Up", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { separate = true, repeating = true })
+hl.bind("ALT + Down", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { separate = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd(qs_ipc .. " media next"), { description = "Next track", ignore_mods = true })
@@ -479,10 +595,10 @@ hl.bind(
 )
 
 hl.bind(mainMod .. " + return", hl.dsp.exec_cmd(terminal))
-hl.bind("ALT_R + SHIFT_R + Q", hl.dsp.window.close(), { separate = true })
+hl.bind("ALT + SHIFT + Q", hl.dsp.window.close(), { separate = true })
 hl.bind(mainMod .. " + SHIFT + M", hl.dsp.exec_cmd("hyprshutdown"))
-hl.bind("ALT_R + V", hl.dsp.window.float({ action = "toggle" }), { separate = true })
-hl.bind("ALT_R + P", hl.dsp.window.pin(), { separate = true })
+hl.bind("ALT + V", hl.dsp.window.float({ action = "toggle" }), { separate = true })
+hl.bind("ALT + P", hl.dsp.window.pin(), { separate = true })
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind("CTRL + SHIFT + l", hl.dsp.exec_cmd(qs_ipc .. " lockScreen lock"))
 hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
@@ -523,4 +639,4 @@ hl.bind("SUPER + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 
 -- Cycle wallpaper
 -- hl.bind("SUPER + N", hl.dsp.exec_cmd("/home/soham/.config/hypr/next-wallpaper.sh"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd(qs_ipc .. " wallpaper random eDP-1"))
+hl.bind("SUPER + N", hl.dsp.exec_cmd(qs_ipc .. " wallpaper random HDMI-A-1"))
