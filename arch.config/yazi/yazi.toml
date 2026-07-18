@@ -25,21 +25,23 @@ open = [
 [open]
 rules = [
   { mime = "text/*", use = "edit" },
-  { name = "*.toml", use = "edit" },
-  { name = "*.lua", use = "edit" },
+  { url = "*.toml", use = "edit" },
+  { url = "*.lua", use = "edit" },
   # Added image rule here
   { mime = "image/*", use = "view_image", for = "unix" },
   { mime = "video/*", use = "play", for = "unix" },
   # Fallback
-  { name = "*", use = "open" },
+  { url = "*", use = "open" },
 ]
 
 [[plugin.prepend_fetchers]]
 id = "git"
-name = "*"
+url = "*"
 run = "git"
+group = "git"
 
 [[plugin.prepend_fetchers]]
 id = "git"
-name = "*/"
+url = "*/"
 run = "git"
+group = "git"

@@ -29,7 +29,7 @@ hl.monitor({
 local terminal = "ghostty"
 local fileManager = "nautilus"
 local menu = "vicinae toggle"
-local qs_ipc = "qs -c noctalia-shell ipc call"
+local qs_ipc = "qs -p /home/soham/dotfiles/shell ipc call"
 local cursorTheme = "Remus-White"
 local cursorSize = "24"
 
@@ -46,7 +46,7 @@ local single_launch_apps = {
 	["google-chrome-stable"] = {
 		class = "google-chrome",
 		name = "Google Chrome",
-		command = "google-chrome-stable",
+		command = "google-chrome-stable --ozone-platform=x11 --disable-lcd-text --disable-font-subpixel-positioning",
 		notification_id_file = "/tmp/hypr-single-launch-google-chrome-stable.notification",
 	},
 	ghostty = {
@@ -60,7 +60,7 @@ local pending_single_launches = {}
 
 local function find_window_by_class(class)
 	for _, window in ipairs(hl.get_windows()) do
-		if window.class == class then
+		if string.lower(window.class or "") == string.lower(class) then
 			return window
 		end
 	end
@@ -124,40 +124,42 @@ local function focus_previous_window()
 end
 
 hl.on("window.open", function(window)
-	local pending = pending_single_launches[window.class]
+	local class = string.lower(window.class or "")
+	local pending = pending_single_launches[class]
 	if pending == nil then
 		return
 	end
 
 	pending.timer:set_enabled(false)
 	dismiss_launch_notification(pending.notification_id_file)
-	pending_single_launches[window.class] = nil
+	pending_single_launches[class] = nil
 	hl.dispatch(hl.dsp.focus({ window = window }))
 end)
 
 local function focus_or_launch_single(app)
 	local spec = single_launch_apps[app]
 	assert(spec, "unknown app: " .. tostring(app))
+	local class = string.lower(spec.class)
 
-	local window = find_window_by_class(spec.class)
+	local window = find_window_by_class(class)
 	if window ~= nil then
 		hl.dispatch(hl.dsp.focus({ window = window }))
 		return
 	end
 
-	if pending_single_launches[spec.class] ~= nil then
+	if pending_single_launches[class] ~= nil then
 		return
 	end
 
 	local timer = hl.timer(function()
-		local pending = pending_single_launches[spec.class]
+		local pending = pending_single_launches[class]
 		if pending ~= nil then
 			dismiss_launch_notification(pending.notification_id_file)
-			pending_single_launches[spec.class] = nil
+			pending_single_launches[class] = nil
 		end
 	end, { timeout = 20000, type = "oneshot" })
 
-	pending_single_launches[spec.class] = {
+	pending_single_launches[class] = {
 		notification_id_file = spec.notification_id_file,
 		timer = timer,
 	}
@@ -186,7 +188,7 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("xrdb ~/.Xresources")
 	hl.exec_cmd("systemctl --user start hyprpolkitagent.service")
 	hl.exec_cmd("hyprctl setcursor " .. cursorTheme .. " " .. cursorSize)
-	hl.exec_cmd("uwsm app -- qs -c noctalia-shell")
+	hl.exec_cmd("uwsm app -- qs -p /home/soham/dotfiles/shell")
 	-- hl.exec_cmd("uwsm app -- mako &")
 	hl.exec_cmd("uwsm app -- vicinae server &")
 	hl.exec_cmd("uwsm app -- jamesdsp -t")
@@ -380,7 +382,7 @@ hl.window_rule({
 hl.window_rule({
 	tag = "+floating-window",
 	match = {
-		class = "(blueberry.py|Impala|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float|org.gnome.Loupe|com.ghostty.floating|vlc|com.ghostty.btop|localsend)",
+		class = "(blueberry.py|Impala|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float|org.gnome.Loupe|io.github.diegopvlk.Cine|com.ghostty.floating|vlc|com.ghostty.btop|localsend)",
 	},
 })
 hl.window_rule({

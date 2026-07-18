@@ -192,19 +192,6 @@
                     "width": 20
                 },
                 {
-                    "defaultSettings": {
-                        "cleanliness": 100,
-                        "difficulty": 50,
-                        "energy": 100,
-                        "happiness": 100,
-                        "hunger": 100,
-                        "showDebug": false,
-                        "showPercentage": false,
-                        "volume": 0.5
-                    },
-                    "id": "plugin:tamagotchi"
-                },
-                {
                     "blacklist": [
                     ],
                     "chevronColor": "none",
@@ -214,12 +201,6 @@
                     "id": "Tray",
                     "pinned": [
                     ]
-                },
-                {
-                    "displayMode": "onhover",
-                    "iconColor": "none",
-                    "id": "Bluetooth",
-                    "textColor": "none"
                 },
                 {
                     "displayMode": "onhover",
@@ -423,14 +404,14 @@
         "allowPanelsOnScreenWithoutBar": true,
         "allowPasswordWithFprintd": false,
         "animationDisabled": false,
-        "animationSpeed": 1,
+        "animationSpeed": 2,
         "autoStartAuth": false,
         "avatarImage": "/home/soham/.face",
         "boxRadiusRatio": 1,
         "clockFormat": "hh\\nmm",
         "clockStyle": "analog",
         "compactLockScreen": false,
-        "dimmerOpacity": 0.2,
+        "dimmerOpacity": 0,
         "enableBlurBehind": false,
         "enableLockScreenCountdown": true,
         "enableLockScreenMediaControls": false,
@@ -539,8 +520,8 @@
     "nightLight": {
         "autoSchedule": false,
         "dayTemp": "6500",
-        "enabled": true,
-        "forced": true,
+        "enabled": false,
+        "forced": false,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "nightTemp": "4888"
@@ -714,13 +695,13 @@
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": true,
         "settingsPanelMode": "attached",
-        "settingsPanelSideBarCardStyle": false,
+        "settingsPanelSideBarCardStyle": true,
         "tooltipsEnabled": true,
         "translucentWidgets": false
     },
     "wallpaper": {
         "automationEnabled": true,
-        "directory": "/home/soham/.config/hypr/wallpapers",
+        "directory": "/home/soham/Pictures/Wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [
