@@ -7,8 +7,13 @@
 // custom settings, run `zed: open default settings` from the
 // command palette (cmd-shift-p / ctrl-shift-p)
 {
+  "active_pane_modifiers": {
+    "inactive_opacity": 1.0
+  },
+  "window_decorations": "server",
+  "redact_private_values": true,
   "minimum_split_diff_width": 5.0,
-  "diff_view_style": "split",
+  "diff_view_style": "unified",
   "outline_panel": {
     "dock": "left"
   },

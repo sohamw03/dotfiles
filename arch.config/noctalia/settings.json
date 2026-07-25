@@ -184,8 +184,8 @@
                     "showNetworkStats": true,
                     "showSwapUsage": false,
                     "textColor": "none",
-                    "useMonospaceFont": true,
-                    "usePadding": true
+                    "useMonospaceFont": false,
+                    "usePadding": false
                 },
                 {
                     "id": "Spacer",
@@ -520,8 +520,8 @@
     "nightLight": {
         "autoSchedule": false,
         "dayTemp": "6500",
-        "enabled": false,
-        "forced": false,
+        "enabled": true,
+        "forced": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
         "nightTemp": "4888"

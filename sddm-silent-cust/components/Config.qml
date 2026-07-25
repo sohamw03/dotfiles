@@ -83,6 +83,8 @@ QtObject {
     property int avatarInactiveBorderSize: config.intValue("LoginScreen.LoginArea.Avatar/inactive-border-size") // @desc:Border size of the non-selected avatars.
     property color avatarActiveBorderColor: config.stringValue("LoginScreen.LoginArea.Avatar/active-border-color") || "#FFFFFF" // @desc:Border color of the selected user's avatar.
     property color avatarInactiveBorderColor: config.stringValue("LoginScreen.LoginArea.Avatar/inactive-border-color") || "#FFFFFF" // @desc:Border color of the non-selected avatars.
+    property color avatarBackgroundColor: config.stringValue("LoginScreen.LoginArea.Avatar/background-color") || "#FFFFFF" // @desc:Background color of the selected user's avatar.
+    property real avatarBackgroundOpacity: config.stringValue("LoginScreen.LoginArea.Avatar/background-opacity") || "#FFFFFF" // @desc:Background opacity of the selected user's avatar.
 
     // [LoginScreen.LoginArea.Username]
     property string usernameFontFamily: config.stringValue("LoginScreen.LoginArea.Username/font-family") || "RedHatDisplay" // @desc:Font family used for the username.

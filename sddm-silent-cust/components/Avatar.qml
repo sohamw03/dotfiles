@@ -13,6 +13,7 @@ Rectangle {
     property int strokeSize: active ? (Config.avatarActiveBorderSize * Config.generalScale) : (Config.avatarInactiveBorderSize * Config.generalScale)
     property string tooltipText: ""
     property bool showTooltip: false
+    property bool isDefault: false
 
     signal clicked
     signal clickedOutside
@@ -25,15 +26,18 @@ Rectangle {
     Rectangle {
         anchors.fill: parent
         radius: avatar.squareRadius
-        color: Config.passwordInputBackgroundColor
-        opacity: Config.passwordInputBackgroundOpacity
+        color: Config.avatarBackgroundColor
+        opacity: Config.avatarBackgroundOpacity
         visible: true
     }
 
     Image {
         id: faceImage
         source: parent.source
-        anchors.fill: parent
+        anchors {
+            fill: parent
+            margins: 10 * Config.generalScale
+        }
         mipmap: true
         antialiasing: true
         visible: false
@@ -47,6 +51,7 @@ Rectangle {
             if (status === Image.Error) {
                 source = Config.getIcon("user-default");
                 faceEffects.colorization = 1;
+                isDefault = true
             }
         }
 
@@ -70,8 +75,10 @@ Rectangle {
         maskSpreadAtMin: 1.0
         maskThresholdMax: 1.0
         maskThresholdMin: 0.5
-        colorization: 0
-        colorizationColor: avatar.strokeColor === Config.passwordInputBackgroundColor && (1.0 - Config.passwordInputBackgroundOpacity < 0.3) ? Config.passwordInputContentColor : avatar.strokeColor
+        colorization: avatar.isDefault ? 1 : 0
+        colorizationColor: Config.passwordInputContentColor
+        brightness: avatar.isDefault ? 1 : 0
+        contrast: avatar.isDefault ? 0 : 0
     }
 
     Item {

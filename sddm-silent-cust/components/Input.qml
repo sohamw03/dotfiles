@@ -101,12 +101,13 @@ Item {
                 padding: 0
                 visible: textField.text.length === 0 && (!textField.preeditText || textField.preeditText.length === 0)
                 text: input.placeholder
-                color: textField.color
+                color: Qt.alpha(textField.color, 0.45)
                 font.pixelSize: Math.max(8, textField.font.pixelSize || 12)
                 font.family: textField.font.family || "sans-serif"
                 horizontalAlignment: Text.AlignHCenter
                 verticalAlignment: textField.verticalAlignment
-                font.italic: true
+                font.italic: false
+                font.weight: Font.Bold
             }
         }
     }

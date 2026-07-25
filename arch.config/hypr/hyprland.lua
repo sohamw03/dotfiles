@@ -248,16 +248,22 @@ hl.env("FREETYPE_PROPERTIES", "truetype:interpreter-version=35 cff:no-stem-darke
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
-		gaps_in = 2,
-		gaps_out = 3,
+		gaps_in = -1,
+		gaps_out = 0,
 
-		border_size = 2,
+		border_size = 1,
 
 		col = {
-			active_border = { colors = { "rgba(66bcbbaa)", "rgba(88aaaacc)" }, angle = 45 },
-			inactive_border = "rgba(88888877)",
+			-- active_border = { colors = { "rgba(66bcbbaa)", "rgba(88aaaacc)" }, angle = 45 },
+			-- inactive_border = "rgba(88888877)",
+
 			-- active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
 			-- inactive_border = "rgba(595959aa)",
+			
+			-- Active: A very soft, semi-transparent slate grey line
+			active_border = "rgba(707070aa)",
+			-- Inactive: An ultra-faint ghost grey line that prevents overlapping windows from blending together
+			inactive_border = "rgba(50505022)",
 		},
 
 		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -270,7 +276,8 @@ hl.config({
 	},
 
 	decoration = {
-		rounding = 8,
+		-- rounding = 8,
+		rounding = 0,
 		rounding_power = 2,
 
 		-- Change transparency of focused and unfocused windows
