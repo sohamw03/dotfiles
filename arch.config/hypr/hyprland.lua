@@ -259,7 +259,7 @@ hl.config({
 
 			-- active_border = { colors = { "rgba(33ccffee)", "rgba(00ff99ee)" }, angle = 45 },
 			-- inactive_border = "rgba(595959aa)",
-			
+
 			-- Active: A very soft, semi-transparent slate grey line
 			active_border = "rgba(707070aa)",
 			-- Inactive: An ultra-faint ghost grey line that prevents overlapping windows from blending together
@@ -680,3 +680,50 @@ hl.bind("SUPER + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 -- Cycle wallpaper
 -- hl.bind("SUPER + N", hl.dsp.exec_cmd("/home/soham/.config/hypr/next-wallpaper.sh"))
 hl.bind("SUPER + N", hl.dsp.exec_cmd(qs_ipc .. " wallpaper random HDMI-A-1"))
+
+-- Peek statusbar
+local noctalia_is_overlay = false
+local function window_is_fullscreen(window)
+	if window == nil then
+		return false
+	end
+
+	-- Hyprland exposes this as a numeric state (0 = not fullscreen). Unlike
+	-- most languages, Lua considers 0 truthy, so it must be tested explicitly.
+	local state = window.fullscreen
+	if type(state) == "number" then
+		return state ~= 0
+	end
+	if type(state) == "string" then
+		return state ~= "" and state ~= "0"
+	end
+	return state == true
+end
+
+local function hide_fullscreen_bar()
+	if noctalia_is_overlay then
+		hl.exec_cmd(qs_ipc .. " bar hideFullscreenOverlay")
+		noctalia_is_overlay = false
+	end
+end
+
+local function toggle_fullscreen_bar()
+	local active_window = hl.get_active_window()
+	if window_is_fullscreen(active_window) then
+		if noctalia_is_overlay then
+			hide_fullscreen_bar()
+		else
+			hl.exec_cmd(qs_ipc .. " bar showFullscreenOverlay")
+			noctalia_is_overlay = true
+		end
+	end
+	return false
+end
+
+-- Do not let a peek leak into normal mode when the client exits fullscreen.
+hl.on("window.fullscreen", function()
+	hide_fullscreen_bar()
+end)
+
+-- Modifier-only binds need the target modifier *and* its physical key.
+hl.bind("SUPER + SUPER_L", toggle_fullscreen_bar, { release = true })
