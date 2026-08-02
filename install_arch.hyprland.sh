@@ -55,6 +55,10 @@ paru -Syu --noconfirm --needed \
     plymouth \
     visual-studio-code-bin \
     ttf-roboto \
+    lucidglyph \
+    easyeffects \
+    lsp-plugins-lv2 \
+    calf
 
 # proton-vpn-gtk-app \
 # waybar

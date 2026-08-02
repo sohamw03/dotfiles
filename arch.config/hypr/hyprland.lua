@@ -15,8 +15,8 @@
 
 -- See https://wiki.hypr.land/Configuring/Basics/Monitors/
 hl.monitor({
-	output = "HDMI-A-1",
-	mode = "1920x1080@75",
+	output = "",
+	mode = "highres@highrr",
 	position = "0x0",
 	scale = "1",
 })
@@ -30,7 +30,7 @@ local terminal = "ghostty"
 local fileManager = "nautilus"
 local menu = "vicinae toggle"
 local qs_ipc = "qs -p /home/soham/dotfiles/shell ipc call"
-local cursorTheme = "Remus-White"
+local cursorTheme = "Adwaita"
 local cursorSize = "24"
 
 local current_focused_window = nil
@@ -191,7 +191,8 @@ hl.on("hyprland.start", function()
 	hl.exec_cmd("uwsm app -- qs -p /home/soham/dotfiles/shell")
 	-- hl.exec_cmd("uwsm app -- mako &")
 	hl.exec_cmd("uwsm app -- vicinae server &")
-	hl.exec_cmd("uwsm app -- jamesdsp -t")
+	-- hl.exec_cmd("uwsm app -- jamesdsp -t")
+	hl.exec_cmd("uwsm app -- easyeffects --service-mode")
 	-- hl.exec_cmd("uwsm app -- swayosd-server &")
 	hl.exec_cmd("uwsm app -- wl-paste --type text --watch cliphist store &")
 	hl.exec_cmd("uwsm app -- wl-paste --type image --watch cliphist store &")
@@ -222,6 +223,8 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 -- hl.env("NVD_BACKEND", "direct")
 hl.env("GDK_SCALE", "1")
 hl.env("FREETYPE_PROPERTIES", "truetype:interpreter-version=35 cff:no-stem-darkening=1 autofitter:no-stem-darkening=1")
+hl.env("GTK_USE_PORTAL","1")
+
 
 -----------------------
 ----- PERMISSIONS -----
@@ -621,8 +624,8 @@ hl.bind(
 	hl.dsp.exec_cmd(qs_ipc .. " brightness decrease"),
 	{ description = "Brightness down", ignore_mods = true, repeating = true }
 )
-hl.bind("ALT + Up", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { separate = true, repeating = true })
-hl.bind("ALT + Down", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { separate = true, repeating = true })
+hl.bind("ALT + K", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { separate = true, repeating = true })
+hl.bind("ALT + J", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { separate = true, repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd(qs_ipc .. " media next"), { description = "Next track", ignore_mods = true })

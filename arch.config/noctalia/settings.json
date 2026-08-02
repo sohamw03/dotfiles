@@ -203,7 +203,7 @@
                     ]
                 },
                 {
-                    "displayMode": "onhover",
+                    "displayMode": "alwaysShow",
                     "iconColor": "none",
                     "id": "Volume",
                     "middleClickCommand": "pwvucontrol || pavucontrol",
@@ -404,7 +404,7 @@
         "allowPanelsOnScreenWithoutBar": true,
         "allowPasswordWithFprintd": false,
         "animationDisabled": false,
-        "animationSpeed": 2,
+        "animationSpeed": 1,
         "autoStartAuth": false,
         "avatarImage": "/home/soham/.face",
         "boxRadiusRatio": 1,
@@ -524,7 +524,7 @@
         "forced": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "nightTemp": "4888"
+        "nightTemp": "4251"
     },
     "noctaliaPerformance": {
         "disableDesktopWidgets": true,
@@ -688,9 +688,9 @@
     "ui": {
         "boxBorderEnabled": false,
         "fontDefault": "Material-Design-Iconic-Font",
-        "fontDefaultScale": 1.02,
+        "fontDefaultScale": 1.03,
         "fontFixed": "monospace",
-        "fontFixedScale": 1.02,
+        "fontFixedScale": 1.03,
         "panelBackgroundOpacity": 1,
         "panelsAttachedToBar": true,
         "scrollbarAlwaysVisible": true,
