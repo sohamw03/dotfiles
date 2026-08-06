@@ -10,7 +10,7 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
-   "close_on_focus_loss": true,
+   "close_on_focus_loss": false,
    "pop_to_root_on_close": false,
    "favicon_service": "twenty",
    "keybinding": "emacs",
@@ -33,6 +33,7 @@
       "opacity": 1
    },
    "keybinds": {
+      "open-search-filter": "control+F",
       "toggle-action-panel": "control+B"
    },
    "favorites": [],
@@ -54,6 +55,9 @@
          "entrypoints": {
             "com.google.Chrome": {
                "enabled": false
+            },
+            "ghostty-wiremix": {
+               "alias": "audio music"
             },
             "power-off": {
                "alias": "off"
