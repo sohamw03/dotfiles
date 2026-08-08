@@ -223,8 +223,7 @@ hl.env("ELECTRON_OZONE_PLATFORM_HINT", "auto")
 -- hl.env("NVD_BACKEND", "direct")
 hl.env("GDK_SCALE", "1")
 hl.env("FREETYPE_PROPERTIES", "truetype:interpreter-version=35 cff:no-stem-darkening=1 autofitter:no-stem-darkening=1")
-hl.env("GTK_USE_PORTAL","1")
-
+hl.env("GTK_USE_PORTAL", "1")
 
 -----------------------
 ----- PERMISSIONS -----
@@ -251,7 +250,7 @@ hl.env("GTK_USE_PORTAL","1")
 -- Refer to https://wiki.hypr.land/Configuring/Basics/Variables/
 hl.config({
 	general = {
-		gaps_in = -1,
+		gaps_in = 0,
 		gaps_out = 0,
 
 		border_size = 1,
@@ -264,9 +263,9 @@ hl.config({
 			-- inactive_border = "rgba(595959aa)",
 
 			-- Active: A very soft, semi-transparent slate grey line
-			active_border = "rgba(707070aa)",
+			active_border = "rgba(606060ff)",
 			-- Inactive: An ultra-faint ghost grey line that prevents overlapping windows from blending together
-			inactive_border = "rgba(50505022)",
+			inactive_border = "rgba(202020ff)",
 		},
 
 		-- Set to true to enable resizing windows by clicking and dragging on borders and gaps
@@ -291,7 +290,7 @@ hl.config({
 			enabled = false,
 			range = 2,
 			render_power = 3,
-			color = 0xee1a1a1a,
+			color = "0xee1a1a1a",
 		},
 
 		blur = {
@@ -322,15 +321,17 @@ hl.curve("easeInOutCubic", { type = "bezier", points = { { 0.65, 0.05 }, { 0.36,
 hl.curve("linear", { type = "bezier", points = { { 0, 0 }, { 1, 1 } } })
 hl.curve("almostLinear", { type = "bezier", points = { { 0.5, 0.5 }, { 0.75, 1 } } })
 hl.curve("quick", { type = "bezier", points = { { 0.15, 0 }, { 0.1, 1 } } })
+hl.curve("smoothEase", { type = "bezier", points = { { 0.25, 1 }, { 0.5, 1 } } })
 
 -- Default springs
 hl.curve("easy", { type = "spring", mass = 1, stiffness = 71.2633, dampening = 15.8273644 })
 
 hl.animation({ leaf = "global", enabled = true, speed = 10, bezier = "default" })
-hl.animation({ leaf = "border", enabled = true, speed = 5.39, bezier = "easeOutQuint" })
+hl.animation({ leaf = "border", enabled = false, speed = 5.39, bezier = "easeOutQuint" })
 hl.animation({ leaf = "windows", enabled = true, speed = 4.79, spring = "easy" })
 hl.animation({ leaf = "windowsIn", enabled = true, speed = 4.1, spring = "easy", style = "popin 87%" })
 hl.animation({ leaf = "windowsOut", enabled = true, speed = 1.49, bezier = "linear", style = "popin 87%" })
+hl.animation({ leaf = "windowsMove", enabled = true, speed = 3, bezier = "smoothEase" })
 hl.animation({ leaf = "fadeIn", enabled = true, speed = 1.73, bezier = "almostLinear" })
 hl.animation({ leaf = "fadeOut", enabled = true, speed = 1.46, bezier = "almostLinear" })
 hl.animation({ leaf = "fade", enabled = true, speed = 3.03, bezier = "quick" })
@@ -504,7 +505,7 @@ hl.config({
 		kb_options = "",
 		kb_rules = "",
 
-		follow_mouse = 1,
+		follow_mouse = 2,
 
 		-- Change speed of keyboard repeat
 		repeat_rate = 25,

@@ -49,7 +49,7 @@
         "contentPadding": 2,
         "density": "comfortable",
         "displayMode": "always_visible",
-        "enableExclusionZoneInset": true,
+        "enableExclusionZoneInset": false,
         "fontScale": 1,
         "frameRadius": 12,
         "frameThickness": 8,
@@ -124,6 +124,7 @@
                 },
                 {
                     "colorizeIcons": false,
+                    "disableAnimation": true,
                     "hideMode": "hidden",
                     "id": "ActiveWindow",
                     "maxWidth": 250,
@@ -207,6 +208,12 @@
                     "iconColor": "none",
                     "id": "Volume",
                     "middleClickCommand": "pwvucontrol || pavucontrol",
+                    "textColor": "none"
+                },
+                {
+                    "displayMode": "onhover",
+                    "iconColor": "none",
+                    "id": "Bluetooth",
                     "textColor": "none"
                 },
                 {
