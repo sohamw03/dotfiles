@@ -11,6 +11,7 @@ edit = [
   { run = 'nvim "$@"', block = true, for = "unix", desc = "Edit in Neovim" },
 ]
 play = [
+  { run = 'cine "$@"', orphan = true, block = false, for = "unix", desc = "Play media in Cine" },
   { run = 'vlc "$@"', orphan = true, block = false, for = "unix", desc = "Play media in VLC" },
 ]
 # Added Loupe opener here
