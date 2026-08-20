@@ -406,7 +406,7 @@ hl.window_rule({
 hl.window_rule({
 	float = true,
 	center = true,
-	size = "{1300, 850}",
+	size = "985 808",
 	match = {
 		tag = "floating-window",
 	},

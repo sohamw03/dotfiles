@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Notifications
+Comment=Opens the Notifications popup
+Exec=bash -c "qs -p /home/soham/dotfiles/shell ipc call notifications toggleHistory"
+Icon=system-suspend
+Terminal=false
+Categories=System;Settings;
+Keywords=sleep;suspend;lock;logout;

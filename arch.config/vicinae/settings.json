@@ -98,7 +98,7 @@
                "enabled": false
             },
             "sleep": {
-               "enabled": true,
+               "enabled": false,
                "preferences": {
                   "confirm": true,
                   "customProgram": "systemctl suspend"

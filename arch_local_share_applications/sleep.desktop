@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Sleep
+Comment=Locks the desktop via Noctalia and suspends the system
+Exec=bash -c "qs -p /home/soham/dotfiles/shell ipc call lockScreen lock && systemctl suspend"
+Icon=system-suspend
+Terminal=false
+Categories=System;Settings;
+Keywords=sleep;suspend;lock;logout;

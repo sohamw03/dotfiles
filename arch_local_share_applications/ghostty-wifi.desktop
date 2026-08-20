@@ -1,0 +1,8 @@
+[Desktop Entry]
+Type=Application
+Name=WiFi
+Comment=Launch WiFui in a floating Ghostty window
+Exec=ghostty --class=com.ghostty.floating --font-size=16 -e /home/soham/.cargo/bin/wifui
+Icon=com.mitchellh.ghostty
+Terminal=false
+Categories=System;TerminalEmulator;
