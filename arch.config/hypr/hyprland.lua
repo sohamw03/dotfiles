@@ -275,6 +275,12 @@ hl.config({
 		allow_tearing = true,
 
 		layout = "dwindle",
+		no_focus_fallback = true
+	},
+
+	dwindle = {
+		preserve_split = true, -- You probably want this
+		smart_split = true,
 	},
 
 	decoration = {
@@ -456,13 +462,6 @@ hl.window_rule({
 hl.workspace_rule({ workspace = "w[tv1]", gaps_out = 0, gaps_in = 0 })
 hl.window_rule({ rounding = 0, match = { workspace = "w[v1]" } })
 hl.window_rule({ border_size = 0, match = { workspace = "w[v1]" } })
-
--- See https://wiki.hypr.land/Configuring/Layouts/Dwindle-Layout/ for more
-hl.config({
-	dwindle = {
-		preserve_split = true, -- You probably want this
-	},
-})
 
 -- See https://wiki.hypr.land/Configuring/Layouts/Master-Layout/ for more
 -- hl.config({
