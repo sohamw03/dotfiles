@@ -46,7 +46,7 @@ local single_launch_apps = {
 	["google-chrome-stable"] = {
 		class = "google-chrome",
 		name = "Google Chrome",
-		command = "google-chrome-stable --ozone-platform=x11 --disable-lcd-text --disable-font-subpixel-positioning",
+		command = "google-chrome-stable --disable-lcd-text --disable-font-subpixel-positioning",
 		notification_id_file = "/tmp/hypr-single-launch-google-chrome-stable.notification",
 	},
 	ghostty = {
@@ -78,7 +78,17 @@ hl.on("window.active", function(window)
 	if window == nil or (current_focused_window ~= nil and window.address == current_focused_window.address) then
 		return
 	end
-
+	-- Skip layer surfaces (panels, bars); only regular windows count.
+	local regular = false
+	for _, w in ipairs(hl.get_windows()) do
+		if w.address == window.address then
+			regular = true
+			break
+		end
+	end
+	if not regular then
+		return
+	end
 	previous_focused_window = current_focused_window
 	current_focused_window = window
 end)
@@ -101,6 +111,21 @@ hl.on("window.destroy", clear_focus_history_window)
 
 local function focus_previous_window()
 	local active = hl.get_active_window()
+	-- A panel/void focus must never overwrite history; fall back to last regular window.
+	if active ~= nil then
+		local regular = false
+		for _, w in ipairs(hl.get_windows()) do
+			if w.address == active.address then
+				regular = true
+				break
+			end
+		end
+		if not regular then
+			active = current_focused_window
+		end
+	else
+		active = current_focused_window
+	end
 	local previous = previous_focused_window
 
 	if previous ~= nil and (active == nil or previous.address ~= active.address) then
@@ -523,30 +548,82 @@ hl.config({
 	},
 })
 
+-- Flick-triggered switch glides; keybinds stay instant (animation off by default).
+local ws_anim_timer = nil
+local function animated_workspace_switch(target)
+	hl.animation({ leaf = "workspaces", enabled = true, speed = 8, bezier = "easeOutQuint" })
+	hl.dispatch(hl.dsp.focus({ workspace = target }))
+	if ws_anim_timer ~= nil then
+		ws_anim_timer:set_enabled(false)
+	end
+	ws_anim_timer = hl.timer(function()
+		hl.animation({ leaf = "workspaces", enabled = false, speed = 0, bezier = "default" })
+		ws_anim_timer = nil
+	end, { timeout = 1000, type = "oneshot" })
+end
 hl.gesture({
 	fingers = 3,
-	direction = "horizontal",
-	scale = 0.4,
-	action = "workspace",
+	direction = "left",
+	action = function()
+		animated_workspace_switch("e+1")
+	end,
+})
+hl.gesture({
+	fingers = 3,
+	direction = "right",
+	action = function()
+		animated_workspace_switch("e-1")
+	end,
 })
 hl.gesture({
 	fingers = 3,
 	direction = "vertical",
 	action = "fullscreen",
 })
+-- 4-finger vertical volume: continuous, with a gentle boost on fast flicks (max 2.5x).
+-- Fires at most once every 3 updates; each fire spawns qs + wpctl processes.
+local volume_acc = 0
+local volume_pushes = 0
+local function volume_fire()
+	local d = volume_acc
+	volume_acc = 0
+	volume_pushes = 0
+	hl.exec_cmd(qs_ipc .. " volume adjust " .. string.format("%.4f", d))
+end
+local function volume_push(delta_y)
+	if delta_y == nil then
+		return
+	end
+	-- delta.y is +down / -up, so swipe up (negative) = increase
+	local gain = 0.5 + math.min(math.abs(delta_y) / 20, 2.0)
+	volume_acc = volume_acc + (-delta_y * 0.0025 * gain)
+	volume_pushes = volume_pushes + 1
+	-- Leftovers keep accumulating; flush() applies them on lift.
+	if math.abs(volume_acc) >= 0.01 and volume_pushes >= 3 then
+		volume_fire()
+	end
+end
+local function volume_flush()
+	if math.abs(volume_acc) >= 0.008 then
+		volume_fire()
+	else
+		volume_acc = 0
+	end
+end
 hl.gesture({
 	fingers = 4,
-	direction = "up",
-	action = function()
-		hl.exec_cmd(qs_ipc .. " volume increase")
-	end,
-})
-hl.gesture({
-	fingers = 4,
-	direction = "down",
-	action = function()
-		hl.exec_cmd(qs_ipc .. " volume decrease")
-	end,
+	direction = "vertical",
+	action = {
+		start = function(e)
+			volume_push(e.delta.y)
+		end,
+		update = function(e)
+			volume_push(e.delta.y)
+		end,
+		finish = function(_e)
+			volume_flush()
+		end,
+	},
 })
 hl.gesture({
 	fingers = 4,
@@ -624,8 +701,8 @@ hl.bind(
 	hl.dsp.exec_cmd(qs_ipc .. " brightness decrease"),
 	{ description = "Brightness down", ignore_mods = true, repeating = true }
 )
-hl.bind("ALT + K", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { separate = true, repeating = true })
-hl.bind("ALT + J", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { separate = true, repeating = true })
+hl.bind("ALT + K", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { repeating = true })
+hl.bind("ALT + J", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { repeating = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd(qs_ipc .. " media next"), { description = "Next track", ignore_mods = true })
