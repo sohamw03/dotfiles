@@ -1,0 +1,11 @@
+[Desktop Entry]
+Type=Application
+Name=Waydroid Stop
+GenericName=Stop Waydroid Session
+Comment=Stop Waydroid session and container
+Exec=bash -c "waydroid session stop; pkexec systemctl stop waydroid-container.service"
+Icon=waydroid
+Terminal=false
+Categories=System;
+Keywords=waydroid;android;session;stop;
+StartupNotify=false

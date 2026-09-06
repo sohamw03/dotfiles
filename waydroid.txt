@@ -1,0 +1,23 @@
+# --- WHAT YOU INSTALLED (history) ---
+paru -S waydroid
+# pulled deps: lxc libgbinder python-gbinder (+ dnsmasq nftables)
+sudo waydroid init -s GAPPS
+sudo systemctl enable --now waydroid-container.service
+waydroid session start
+waydroid show-full-ui
+
+# data created:
+# /var/lib/waydroid (~3.0G) + /var/lib/waydroid/images
+# ~/.local/share/waydroid
+# ~/.local/share/applications/waydroid.*.desktop
+
+# --- UNINSTALL WHEN NEEDED (reverse, pick what you need) ---
+waydroid session stop
+sudo systemctl disable --now waydroid-container.service
+sudo rm -rf /var/lib/waydroid /var/cache/waydroid
+rm -rf ~/.local/share/waydroid
+rm -f ~/.local/share/applications/waydroid.*.desktop
+# remove package (keep deps): paru -R waydroid
+# remove package + deps installed with it: paru -Rns waydroid lxc libgbinder python-gbinder
+# remove orphans after: paru -Qtdq | paru -Rns -
+# optional: sudo rm /etc/waydroid.cfg 2>/dev/null; true

@@ -1,9 +1,0 @@
-#!/bin/bash
-
-if pgrep -x wlsunset > /dev/null; then
-  pkill wlsunset
-  notify-send "  Nightlight Off"
-else
-  wlsunset -t 4500 -T 6000 -S 00:00 -s 00:00 -g 0.9 &
-  notify-send "  Nightlight On"
-fi

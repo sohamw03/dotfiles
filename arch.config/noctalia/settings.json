@@ -156,7 +156,7 @@
                     "showVisualizer": false,
                     "textColor": "none",
                     "useFixedWidth": false,
-                    "visualizerType": "linear"
+                    "visualizerType": "random"
                 },
                 {
                     "hideWhenZero": false,

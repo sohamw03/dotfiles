@@ -1,0 +1,10 @@
+[tools]
+agy = "latest"
+codex = "latest"
+go = "latest"
+node = "25"
+opencode = "latest"
+usage = "latest"
+
+[settings]
+minimum_release_age_excludes = ["opencode", "codex", "agy"]
