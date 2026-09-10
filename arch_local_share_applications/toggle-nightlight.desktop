@@ -2,5 +2,9 @@
 Type=Application
 Name=Night Light
 Comment=Toggle Night Light
-Exec=/home/soham/dotfiles/binomarchy/omarchy-toggle-nightlight
+Exec=/usr/local/bin/qs -p /home/soham/dotfiles/shell ipc call nightLight toggle
 Icon=com.mitchellh.ghostty
+Terminal=false
+Categories=System;
+Keywords=nightlight;night;light;bluelight;hyprshade;
+StartupNotify=false

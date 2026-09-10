@@ -703,6 +703,7 @@ hl.bind(
 )
 hl.bind("ALT + K", hl.dsp.exec_cmd(qs_ipc .. " volume increase"), { repeating = true })
 hl.bind("ALT + J", hl.dsp.exec_cmd(qs_ipc .. " volume decrease"), { repeating = true })
+hl.bind("ALT + M", hl.dsp.exec_cmd(qs_ipc .. " media playPause"), { description = "Play/Pause", separate = true })
 
 -- Requires playerctl
 hl.bind("XF86AudioNext", hl.dsp.exec_cmd(qs_ipc .. " media next"), { description = "Next track", ignore_mods = true })

@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=PlayPnP
+GenericName=DLNA Media Renderer
+Comment=Cast videos from your phone to this PC via BubbleUPnP (plays in VLC)
+TryExec=/home/soham/.cargo/bin/playpnp
+Exec=bash -c "/home/soham/.cargo/bin/playpnp 2>&1 | xargs -r -I{} /usr/local/bin/qs -p /home/soham/dotfiles/shell ipc call osd showText {} cast"
+Icon=vlc
+Terminal=false
+Categories=AudioVideo;Player;
+Keywords=dlna;upnp;cast;media;renderer;vlc;bubbleupnp;
+StartupNotify=false

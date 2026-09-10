@@ -531,7 +531,7 @@
         "forced": true,
         "manualSunrise": "06:30",
         "manualSunset": "18:30",
-        "nightTemp": "4251"
+        "nightTemp": "4706"
     },
     "noctaliaPerformance": {
         "disableDesktopWidgets": true,
@@ -577,7 +577,8 @@
             0,
             1,
             2,
-            3
+            3,
+            4
         ],
         "location": "bottom",
         "monitors": [
@@ -655,7 +656,7 @@
         "showHeader": true,
         "showKeybinds": true
     },
-    "settingsVersion": 59,
+    "settingsVersion": 60,
     "systemMonitor": {
         "batteryCriticalThreshold": 5,
         "batteryWarningThreshold": 20,
@@ -708,7 +709,7 @@
     },
     "wallpaper": {
         "automationEnabled": true,
-        "directory": "/home/soham/Pictures/Wallpapers",
+        "directory": "/home/soham/.config/hypr/wallpapers",
         "enableMultiMonitorDirectories": false,
         "enabled": true,
         "favorites": [

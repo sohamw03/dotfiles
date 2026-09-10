@@ -59,6 +59,9 @@
             "ghostty-wiremix": {
                "alias": "audio music"
             },
+            "playpnp": {
+               "alias": "play pnp"
+            },
             "power-off": {
                "alias": "off"
             },
