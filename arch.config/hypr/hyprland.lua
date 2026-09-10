@@ -424,7 +424,7 @@ hl.window_rule({
 hl.window_rule({
 	tag = "+floating-window",
 	match = {
-		class = "(blueberry.py|Impala|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|Omarchy|About|TUI.float|org.gnome.Loupe|io.github.diegopvlk.Cine|com.ghostty.floating|vlc|com.ghostty.btop|localsend)",
+		class = "(blueberry.py|Impala|Wiremix|org.gnome.NautilusPreviewer|com.gabm.satty|dev.tensaku.Tensaku|Omarchy|About|TUI.float|org.gnome.Loupe|io.github.diegopvlk.Cine|com.ghostty.floating|vlc|com.ghostty.btop|localsend)",
 	},
 })
 hl.window_rule({
@@ -471,6 +471,18 @@ hl.layer_rule({
 	no_anim = true,
 	match = {
 		namespace = "vicinae",
+	},
+})
+hl.layer_rule({
+	no_anim = true,
+	match = {
+		namespace = "noctalia-bar.*",
+	},
+})
+hl.layer_rule({
+	no_anim = true,
+	match = {
+		namespace = "noctalia-background.*",
 	},
 })
 
@@ -722,10 +734,16 @@ hl.bind("ALT + V", hl.dsp.window.float({ action = "toggle" }), { separate = true
 hl.bind("ALT + P", hl.dsp.window.pin(), { separate = true })
 hl.bind(mainMod .. " + space", hl.dsp.exec_cmd(menu))
 hl.bind("CTRL + SHIFT + l", hl.dsp.exec_cmd(qs_ipc .. " lockScreen lock"))
-hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("hyprctl reload"))
-hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd("hyprshot -z -m region -o /home/soham/Pictures/Screenshots/"))
-hl.bind("CTRL + SHIFT + S", hl.dsp.exec_cmd("hyprshot -z -m window -o /home/soham/Pictures/Screenshots/"))
-hl.bind("SUPER + SHIFT + bracketleft", hl.dsp.exec_cmd("hyprshot -z -m output -o /home/soham/Pictures/Screenshots/"))
+-- Reload drops hyprshade's screen shader, so re-assert night light afterwards
+-- (Noctalia reads enabled from settings while the compositor has no shader).
+hl.bind("SUPER + SHIFT + R", hl.dsp.exec_cmd("sh -c 'hyprctl reload; sleep 1; " .. qs_ipc .. " nightLight reapply'"))
+-- Omarchy-style grim+slurp screenshots: night light suppressed during capture,
+-- preview notification offers Tensaku edit. Modes: smart (drag or click a
+-- window), windows (snap to window/monitor), fullscreen (focused monitor).
+local screenshot = "/home/soham/.config/hypr/Scripts/screenshot.sh"
+hl.bind("SUPER + SHIFT + S", hl.dsp.exec_cmd(screenshot .. " smart"))
+hl.bind("CTRL + SHIFT + S", hl.dsp.exec_cmd(screenshot .. " windows"))
+hl.bind("SUPER + SHIFT + bracketleft", hl.dsp.exec_cmd(screenshot .. " fullscreen"))
 -- hl.bind(mainMod .. " + P", hl.dsp.window.pseudo()) -- dwindle
 hl.bind("SUPER + E", hl.dsp.layout("togglesplit")) -- dwindle only
 hl.bind(mainMod .. " + F", hl.dsp.window.fullscreen({ mode = "fullscreen" })) -- dwindle
@@ -758,53 +776,50 @@ hl.bind("SUPER + SHIFT + l", hl.dsp.window.move({ direction = "r" }))
 hl.bind("SUPER + SHIFT + k", hl.dsp.window.move({ direction = "u" }))
 hl.bind("SUPER + SHIFT + j", hl.dsp.window.move({ direction = "d" }))
 
--- Cycle wallpaper
--- hl.bind("SUPER + N", hl.dsp.exec_cmd("/home/soham/.config/hypr/next-wallpaper.sh"))
-hl.bind("SUPER + N", hl.dsp.exec_cmd(qs_ipc .. " wallpaper random HDMI-A-1"))
+-- Cycle wallpaper on active display
+local active_display = (hl.get_active_workspace() and hl.get_active_workspace().monitor.name) or "eDP-1"
+hl.on("workspace.active", function(ws)
+	if ws and ws.monitor then
+		active_display = ws.monitor.name
+	end
+end)
 
--- Peek statusbar
-local noctalia_is_overlay = false
-local function window_is_fullscreen(window)
-	if window == nil then
-		return false
-	end
+hl.bind("SUPER + N", function()
+	hl.exec_cmd(qs_ipc .. " wallpaper random " .. active_display)
+end)
 
-	-- Hyprland exposes this as a numeric state (0 = not fullscreen). Unlike
-	-- most languages, Lua considers 0 truthy, so it must be tested explicitly.
-	local state = window.fullscreen
-	if type(state) == "number" then
-		return state ~= 0
-	end
-	if type(state) == "string" then
-		return state ~= "" and state ~= "0"
-	end
-	return state == true
-end
+-- Win-tap toggles Noctalia bar (normal hide/show, fullscreen peek overlay)
+local noctalia_is_overlay, bar_hidden = false, false
 
 local function hide_fullscreen_bar()
 	if noctalia_is_overlay then
 		hl.exec_cmd(qs_ipc .. " bar hideFullscreenOverlay")
+		if bar_hidden then
+			hl.exec_cmd(qs_ipc .. " bar hideBar")
+		end
 		noctalia_is_overlay = false
 	end
 end
 
-local function toggle_fullscreen_bar()
-	local active_window = hl.get_active_window()
-	if window_is_fullscreen(active_window) then
+local function toggle_win_bar()
+	local win = hl.get_active_window()
+	local fs = win and win.fullscreen and win.fullscreen ~= 0 and win.fullscreen ~= "0"
+	if fs then
 		if noctalia_is_overlay then
 			hide_fullscreen_bar()
 		else
+			if bar_hidden then
+				hl.exec_cmd(qs_ipc .. " bar showBar")
+			end
 			hl.exec_cmd(qs_ipc .. " bar showFullscreenOverlay")
 			noctalia_is_overlay = true
 		end
+	else
+		hide_fullscreen_bar()
+		bar_hidden = not bar_hidden
+		hl.exec_cmd(qs_ipc .. " bar " .. (bar_hidden and "hideBar" or "showBar"))
 	end
-	return false
 end
 
--- Do not let a peek leak into normal mode when the client exits fullscreen.
-hl.on("window.fullscreen", function()
-	hide_fullscreen_bar()
-end)
-
--- Modifier-only binds need the target modifier *and* its physical key.
-hl.bind("SUPER + SUPER_L", toggle_fullscreen_bar, { release = true })
+hl.on("window.fullscreen", hide_fullscreen_bar)
+hl.bind("SUPER + SUPER_L", toggle_win_bar, { release = true })
