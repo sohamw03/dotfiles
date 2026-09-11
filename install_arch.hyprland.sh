@@ -31,6 +31,8 @@ paru -Syu --noconfirm --needed \
     gnome-themes-extra \
     xdg-desktop-portal-gtk \
     xdg-desktop-portal-hyprland \
+    xdg-desktop-portal-gnome \
+    nautilus \
     vicinae-bin \
     wiremix \
     pamixer \
@@ -58,7 +60,10 @@ paru -Syu --noconfirm --needed \
     lucidglyph \
     easyeffects \
     lsp-plugins-lv2 \
-    calf
+    calf \
+    xdotool \
+    hyprpicker \
+    tensaku
 
 # proton-vpn-gtk-app \
 # waybar
