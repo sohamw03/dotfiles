@@ -320,7 +320,7 @@ hl.config({
 		},
 
 		blur = {
-			enabled = false,
+			enabled = true,
 			size = 3,
 			passes = 1,
 			vibrancy = 0.1696,
@@ -476,6 +476,24 @@ hl.layer_rule({
 })
 hl.layer_rule({
 	no_anim = true,
+	blur = true,
+	ignore_alpha = 0.0,
+	match = {
+		namespace = "noctalia-bar-content.*",
+	},
+})
+hl.layer_rule({
+	no_anim = true,
+	blur = true,
+	ignore_alpha = 0.0,
+	match = {
+		namespace = "noctalia-launcher-overlay.*",
+	},
+})
+hl.layer_rule({
+	no_anim = true,
+	blur = true,
+	ignore_alpha = 0.0,
 	match = {
 		namespace = "noctalia-background.*",
 	},

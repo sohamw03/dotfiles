@@ -89,6 +89,7 @@ alias la='eza -la --icons --group-directories-first --no-quotes --header'
 
 alias sc=streamcal
 alias n=nvim
+alias oc=opencode
 
 # ---------------- Zed ---------------- #
 alias c="WGPU_BACKEND=vulkan zeditor"

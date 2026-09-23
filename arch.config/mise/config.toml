@@ -3,7 +3,6 @@ agy = "latest"
 codex = "latest"
 go = "latest"
 node = "25"
-opencode = "latest"
 usage = "latest"
 
 [settings]
